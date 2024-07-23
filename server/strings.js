@@ -1,0 +1,2 @@
+const databaseUrl = "mongodb+srv://AdhamGohary:U60cG3lt49x455S8@dev-amazonclonefluttera.eepdsjf.mongodb.net/?retryWrites=true&w=majority&appName=dev-amazonCloneFlutterApp-main-cluster";
+module.exports = databaseUrl;
