@@ -1,88 +1,95 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../../../core/theme/app_colors.dart';
 import 'package:amazon_clone_app/core/strings/app_strings.dart';
 import 'package:amazon_clone_app/core/utils/screen_size.dart';
-import 'package:amazon_clone_app/core/widgets/custom_Txt_field.dart';
-import 'package:amazon_clone_app/features/auth/presentaion/provider/hold_changable_data_provider.dart';
+import 'package:amazon_clone_app/core/widgets/custom_txt_form_field.dart';
+import 'package:amazon_clone_app/features/auth/domian/entities/user_entity.dart';
+import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_bloc.dart';
+import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_events.dart';
+import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_states.dart';
+import 'package:amazon_clone_app/features/auth/presentaion/widget/custom_check_box_tile.dart';
+import 'package:amazon_clone_app/features/auth/presentaion/widget/custom_radio_tile.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpFormWidget extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final Orientation orientation;
-  const SignUpFormWidget(
-      {super.key,
-      required this.nameController,
-      required this.emailController,
-      required this.passwordController,
-      required this.orientation});
+  final GlobalKey<FormState> formKey;
+  final HoldChangableDataStates state;
+  const SignUpFormWidget({
+    super.key,
+    required this.nameController,
+    required this.emailController,
+    required this.passwordController,
+    required this.formKey,
+    required this.state,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = ScreenSize.screenHeight(context: context);
-
-    switch (orientation) {
-      case Orientation.portrait:
-        return _columnOfWidgets(
-            context: context, sizedBoxHeight: 0.4 * screenHeight);
-      default:
-        return _columnOfWidgets(
-            context: context, sizedBoxHeight: 0.67 * screenHeight);
-    }
+    return _buildBody(
+      context: context,
+    );
   }
 
-  Widget _columnOfWidgets({
+  Widget _buildBody({
     required BuildContext context,
-    required double sizedBoxHeight,
   }) {
-    var selectedSignInOrSignUpValue =
-        context.watch<HoldChangableDataProvider>().selectedSignInOrSignUp;
     final screenHeight = ScreenSize.screenHeight(context: context);
-    return Column(
-      children: [
-        RadioListTile(
-          title: const Text(AppStrings.createAccountTxt),
-          value: AppStrings.createAccountTxt,
-          groupValue: selectedSignInOrSignUpValue,
-          fillColor: selectedSignInOrSignUpValue == AppStrings.createAccountTxt
-              ? const MaterialStatePropertyAll<Color>(AppColors.primaryColor)
-              : const MaterialStatePropertyAll<Color>(
-                  AppColors.hintOrDisableColor),
-          onChanged: (val) => context
-              .read<HoldChangableDataProvider>()
-              .selectSignUpOrSignInRadioButton(val!),
-        ),
-        SizedBox(
-            height: selectedSignInOrSignUpValue == AppStrings.createAccountTxt
-                ? sizedBoxHeight
-                : 0.01 * screenHeight,
-            child: selectedSignInOrSignUpValue == AppStrings.createAccountTxt
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomTxtField(
-                          textEditingController: nameController,
-                          isObscure: false,
-                          hintText: AppStrings.nameHintTxt),
-                      CustomTxtField(
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          CustomRadioTile(
+            text: AppStrings.authPageCreateAccountTxt,
+            value: AppStrings.authPageCreateAccountTxt,
+            state: state,
+          ),
+          state.selectedSignInOrSignUp == AppStrings.authPageCreateAccountTxt
+              ? Column(
+                  children: [
+                    CustomTxtFormField(
+                        textEditingController: nameController,
+                        isObscure: false,
+                        hintText: AppStrings.authPageNameHintTxt),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0.01 * screenHeight),
+                      child: CustomTxtFormField(
                           textEditingController: emailController,
                           isObscure: false,
-                          hintText: AppStrings.emailHintTxt),
-                      CustomTxtField(
-                          textEditingController: passwordController,
-                          isObscure: true,
-                          hintText: AppStrings.passwordHintTxt),
-                      ElevatedButton(
-                          onPressed: () {},
-                          child: const Text(AppStrings.createAccountTxt))
-                    ],
-                  )
-                : const Divider(
-                    color: AppColors.hidingColor,
-                  ))
-      ],
+                          hintText: AppStrings.authPageEmailHintTxt),
+                    ),
+                    CustomTxtFormField(
+                        textEditingController: passwordController,
+                        isObscure: state.selectedShowPasswordOrNot == false
+                            ? true
+                            : false,
+                        hintText: AppStrings.authPagePasswordHintTxt),
+                    CustomCheckBoxTile(
+                      state: state,
+                    ),
+                    ElevatedButton(
+                        onPressed: () =>
+                            _validateFormThenCreateAccountBtnOnPressed(context),
+                        child: const Text(AppStrings.authPageCreateAccountTxt))
+                  ],
+                )
+              : Container()
+        ],
+      ),
     );
+  }
+
+  void _validateFormThenCreateAccountBtnOnPressed(BuildContext context) {
+    final isValid = formKey.currentState!.validate();
+    if (isValid) {
+      final user = UserEntity(
+          name: nameController.text,
+          email: emailController.text,
+          password: passwordController.text);
+      BlocProvider.of<AuthBloc>(context).add(SignUpEvent(user: user));
+    }
   }
 }

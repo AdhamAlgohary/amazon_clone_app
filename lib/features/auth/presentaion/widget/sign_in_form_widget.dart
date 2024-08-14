@@ -1,79 +1,64 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'package:amazon_clone_app/core/theme/app_colors.dart';
-import 'package:amazon_clone_app/core/strings/app_strings.dart';
 import 'package:amazon_clone_app/core/utils/screen_size.dart';
-import 'package:amazon_clone_app/features/auth/presentaion/provider/hold_changable_data_provider.dart';
-import '../../../../core/widgets/custom_Txt_field.dart';
+import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_states.dart';
+import 'package:amazon_clone_app/features/auth/presentaion/widget/custom_check_box_tile.dart';
+import 'package:amazon_clone_app/features/auth/presentaion/widget/custom_radio_tile.dart';
+import 'package:flutter/material.dart';
 
+import 'package:amazon_clone_app/core/strings/app_strings.dart';
+import '../../../../core/widgets/custom_txt_form_field.dart';
 
 class SignInFormWidget extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final Orientation orientation;
-  const SignInFormWidget(
-      {super.key,
-      required this.emailController,
-      required this.passwordController,
-      required this.orientation});
+  final GlobalKey<FormState> formKey;
+  final HoldChangableDataStates state;
+  const SignInFormWidget({
+    super.key,
+    required this.emailController,
+    required this.passwordController,
+    required this.state,
+    required this.formKey,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = ScreenSize.screenHeight(context: context);
-    switch (orientation) {
-      case Orientation.portrait:
-        return _columnOfWidgets(
-            context: context, sizedBoxHeight: 0.3 * screenHeight);
-      default:
-        return _columnOfWidgets(
-          context: context,
-          sizedBoxHeight: 0.6 * screenHeight,
-        );
-    }
+    return _columnOfWidgets(context: context);
   }
-  Widget _columnOfWidgets(
-      {required BuildContext context, required double sizedBoxHeight}) {
-    var selectedSignInOrSignUpValue =
-        context.watch<HoldChangableDataProvider>().selectedSignInOrSignUp;
+
+  Widget _columnOfWidgets({required BuildContext context}) {
     final screenHeight = ScreenSize.screenHeight(context: context);
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        RadioListTile(
-            title: const Text(AppStrings.signInTxt),
-            value: AppStrings.signInTxt,
-            groupValue: selectedSignInOrSignUpValue,
-            fillColor: selectedSignInOrSignUpValue == AppStrings.signInTxt
-                ? const MaterialStatePropertyAll<Color>(AppColors.primaryColor)
-                : const MaterialStatePropertyAll<Color>(
-                    AppColors.hintOrDisableColor),
-            onChanged: (val) => context
-                .read<HoldChangableDataProvider>()
-                .selectSignUpOrSignInRadioButton(val!)),
-        SizedBox(
-            height: selectedSignInOrSignUpValue == AppStrings.signInTxt
-                ? sizedBoxHeight
-                : 0.01 * screenHeight,
-            child: selectedSignInOrSignUpValue == AppStrings.signInTxt
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CustomTxtField(
-                          textEditingController: emailController,
-                          isObscure: false,
-                          hintText: AppStrings.emailHintTxt),
-                      CustomTxtField(
+        CustomRadioTile(
+            text: AppStrings.authPageSignInBtnTxt,
+            value: AppStrings.authPageSignInBtnTxt,
+            state: state),
+        Form(
+          key: formKey,
+          child: state.selectedSignInOrSignUp == AppStrings.authPageSignInBtnTxt
+              ? Column(
+                  children: [
+                    CustomTxtFormField(
+                        textEditingController: emailController,
+                        isObscure: false,
+                        hintText: AppStrings.authPageEmailHintTxt),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0.03 * screenHeight),
+                      child: CustomTxtFormField(
                           textEditingController: passwordController,
                           isObscure: true,
-                          hintText: AppStrings.passwordHintTxt),
-                      ElevatedButton(
-                          onPressed: () {},
-                          child: const Text(AppStrings.signInTxt))
-                    ],
-                  )
-                : const Divider(
-                    color: AppColors.hidingColor,
-                  ))
+                          hintText: AppStrings.authPageShowPasswordTxt),
+                    ),
+                    CustomCheckBoxTile(state: state),
+                    ElevatedButton(
+                        onPressed: () {},
+                        child: const Text(AppStrings.authPageSignInBtnTxt))
+                  ],
+                )
+              : Container(),
+        )
       ],
     );
   }

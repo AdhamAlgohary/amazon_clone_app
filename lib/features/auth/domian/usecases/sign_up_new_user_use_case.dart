@@ -6,8 +6,8 @@ import 'package:dartz/dartz.dart';
 class SignUpNewUserUseCase {
   final AuthRepository _repository;
   const SignUpNewUserUseCase(this._repository);
-  Future<Either<Failure, UserEntity>> call(
-          String name, String email, String password) async =>
+  Future<Either<Failure, String>> call(
+          UserEntity user) async =>
       await _repository.signUpNewUser(
-          name: name, email: email, password: password);
+          userEntity: user);
 }

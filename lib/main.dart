@@ -1,12 +1,14 @@
 import 'package:amazon_clone_app/core/theme/app_theme.dart';
 import 'package:amazon_clone_app/core/strings/app_strings.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/pages/auth_page.dart';
-import 'package:amazon_clone_app/features/auth/presentaion/provider/hold_changable_data_provider.dart';
 import 'package:amazon_clone_app/routes.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:amazon_clone_app/injection_container.dart' as ic;
 
-void main() {
+import 'package:flutter/material.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ic.init();
   runApp(const MyApp());
 }
 
@@ -15,17 +17,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_)=>HoldChangableDataProvider(),
-      child: MaterialApp(
-        title: AppStrings.titleOfApp,
-        debugShowCheckedModeBanner: false,
-        theme: appTheme,
-        onGenerateRoute: RouteGenerator.generateRoute,
-        home:const SafeArea(child: AuthPage(),),
-        
+    return MaterialApp(
+      title: AppStrings.titleOfApp,
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightAppTheme,
+      onGenerateRoute: RouteGenerator.generateRoute,
+      home: const SafeArea(
+        child: AuthPage(),
       ),
     );
   }
 }
-

@@ -7,10 +7,16 @@ const User = require("../models/user.js");
 const signUpNewUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+
     const userIsExisting = await User.findOne({ email });
+    const passwordIsNotValid = password.length < 6;
 
     if (userIsExisting) {
-      res.status(400).json({ msg: "User with same email already exist" });
+      res
+        .status(400)
+        .json({ msgFromApi: "User with same email already exist" });
+    } else if (passwordIsNotValid) {
+      res.status(500).json({ msgFromApi: "please enter a long password" });
     } else {
       const hashedPassword = await bcryptjs.hash(password, 10);
       let user = new User({
@@ -18,11 +24,12 @@ const signUpNewUser = async (req, res) => {
         email,
         password: hashedPassword,
       });
+
       user = await user.save();
-      res.json(user);
+      res.status(200).json({ msgFromApi: "Account created successfully" });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ msgFromApi: error.message });
   }
 };
 ////Sign In Route////

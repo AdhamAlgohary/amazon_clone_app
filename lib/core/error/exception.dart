@@ -1,11 +1,15 @@
-class ServerException implements Exception {}
+class ServerException implements Exception {
+  const ServerException();
+}
 
-class EmptyCacheException implements Exception {}
+class EmptyCacheException implements Exception {
+  const EmptyCacheException();
+}
 
-class OfflineException implements Exception {}
+class OfflineException implements Exception {
+  const OfflineException();
+}
 
 class ClientException implements Exception {
-  final String _msg;
-  const ClientException(this._msg);
-  String get clientErrorMsg => _msg;
+  const ClientException();
 }

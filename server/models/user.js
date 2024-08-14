@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-  name:{
+  name: {
     required: true,
     type: String,
     trim: true,
@@ -17,26 +17,22 @@ const userSchema = mongoose.Schema({
         return value.match(regex);
       },
       message: "Please enter a valid email",
-    },  },
-    password: {
-      required: true,
-      type: String,
-      validate: {
-        validator: (value) => value.length > 6,
-      },
-      message: "please enter a long password",
     },
-    address: {
-      required: false,
-      type: String,
-      default: "",
-    },
-    type: {
-      required: false,
-      type: String,
-      default: "user",
-    },
-
+  },
+  password: {
+    required: true,
+    type: String,
+  },
+  address: {
+    required: false,
+    type: String,
+    default: "",
+  },
+  type: {
+    required: false,
+    type: String,
+    default: "user",
+  },
 });
 
 const User = mongoose.model("User", userSchema);

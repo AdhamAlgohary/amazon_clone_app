@@ -6,7 +6,7 @@ const routes = require("./routes/routes.js");
 const DB = require("./strings.js");
 //Init
 const app = express();
-const PORT = 3000;
+const PORT = 8000;
 //middleware
 app.use(express.json());
 app.use(routes.authRoutes);
@@ -22,6 +22,6 @@ mongoose
   .catch((e) => console.log(` error : ${e.message}`));
 
 //Creating An API
-app.listen(PORT, () => {
+app.listen(PORT,"192.168.1.24", () => {
   console.log(`Server running on port ${PORT}`);
 });

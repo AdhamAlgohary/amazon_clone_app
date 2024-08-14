@@ -1,10 +1,19 @@
+abstract class Failure {
+  const Failure();
+}
 
-abstract class Failure {}
+class OffLineFailure extends Failure {
+  const OffLineFailure();
+}
 
-class OffLineFailure extends Failure {}
+class ServerFailure extends Failure {
+  const ServerFailure();
+}
 
-class ServerFailure extends Failure {}
+class EmptyCacheFailure extends Failure {
+  const EmptyCacheFailure();
+}
 
-class EmptyCacheFailure extends Failure {}
-
-class ClientFailure extends Failure {}
+class ClientFailure extends Failure {
+  const ClientFailure();
+}
