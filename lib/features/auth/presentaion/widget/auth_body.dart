@@ -84,7 +84,7 @@ class AuthBody extends StatelessWidget {
 
   void _handleStateChanges(BuildContext context, AuthStates state) {
     switch (state) {
-      case MessageCreateUserState _:
+      case DoneMessageCreateUserState _:
         {
           _clearControllers();
           SnackbarMsg.showSnackBar(

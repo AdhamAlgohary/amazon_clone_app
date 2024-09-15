@@ -13,45 +13,61 @@ class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
   const AuthRemoteDataSourceImplWithHttp({required this.client});
 
   @override
-  Future<User> signIn({required String email, required String password}) async {
-    final body = {"email": email, "password": password};
+  Future<User> signIn(User user) async {
+    final String body =
+        _encodedBody({"email": user.email, "password": user.password});
     final response =
-        await client.post(Uri.parse(AuthEndPoints.signInEndPoint), body: body);
+        await _postRequest(url: AuthEndPoints.signInEndPoint, body: body);
 
-    final responseIsRightCondition = response.statusCode == 200;
-    if (responseIsRightCondition) {
+    if (response.statusCode == 200) {
       final Map<String, dynamic> decodedJson = json.decode(response.body);
       User userData = User.fromJson(decodedJson);
       return userData;
     } else {
-      throw const ServerException();
+      throw _handleErrorResponse(response: response);
     }
   }
 
   @override
   Future<String> signUpNewUser(User user) async {
-    final body = {
-      "name": user.name,
-      "email": user.email,
-      "password": user.password,
-    };
-    final encodedJsonBody = json.encode(body);
-    final response = await client.post(Uri.parse(AuthEndPoints.signUpEndPoint),
-        headers: headers, body: encodedJsonBody);
+    final String body = _encodedBody(
+        {"name": user.name, "email": user.email, "password": user.password});
+    final response =
+         _postRequest(url: AuthEndPoints.signUpEndPoint, body: body);
+
     if (response.statusCode == 200) {
       return _msgFromApi(response.body);
-    } else if (response.statusCode == 400) {
-      FailuresMsg.clientFailureMsg=_msgFromApi(response.body);
-      throw const ClientException();
     } else {
-      FailuresMsg.serverFailureMsg=_msgFromApi(response.body);
-      throw const ServerException();
+      throw _handleErrorResponse(response: response);
+    }
+  }
+
+  String _encodedBody(Map<String, dynamic> body) {
+    final String encodedBody = json.encode(body);
+    return encodedBody;
+  }
+
+  Future<http.Response> _postRequest(
+      {required String url, required String body}) async {
+    final response =
+        await client.post(Uri.parse(url), headers: headers, body: body);
+    return response;
+  }
+
+  Exception _handleErrorResponse({required http.Response response}) {
+    final errMsg = _msgFromApi(response.body);
+    if (response.statusCode == 400) {
+      FailuresMsg.clientFailureMsg = errMsg;
+      return const ClientException();
+    } else {
+      FailuresMsg.serverFailureMsg = errMsg;
+      return const ServerException();
     }
   }
 
   String _msgFromApi(String responseBody) {
     final decodedJson = json.decode(responseBody);
-    final String successOrFailedMsgFromApi= decodedJson["msgFromApi"];
+    final String successOrFailedMsgFromApi = decodedJson["msgFromApi"];
     return successOrFailedMsgFromApi;
   }
 }

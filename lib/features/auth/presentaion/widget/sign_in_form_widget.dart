@@ -39,6 +39,7 @@ class SignInFormWidget extends StatelessWidget {
           child: state.selectedSignInOrSignUp == AppStrings.authPageSignInBtnTxt
               ? Column(
                   children: [
+                    
                     CustomTxtFormField(
                         textEditingController: emailController,
                         isObscure: false,

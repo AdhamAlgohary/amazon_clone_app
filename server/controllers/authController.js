@@ -42,10 +42,10 @@ const signIn = async (req, res) => {
       const token = jwt.sign({ id: userIsExisting._id }, "passwordKey");
       res.status(200).json({ token, ...userIsExisting._doc });
     } else {
-      res.status(400).json({ msg: "Invalid email or password" });
+      res.status(400).json({ msgFromApi: "Invalid email or password" });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ msgFromApi: error.message });
   }
 };
 

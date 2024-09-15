@@ -30,7 +30,7 @@ SignUpStates _eitherDoneMessageOrErrorState(Either<Failure, String> either) {
   return either.fold(
       (failure) =>
           ErrorCreateUserState(failedMsg: _mapFailureToMessage(failure)),
-      (msg) => MessageCreateUserState(msgFromApi: msg));
+      (msg) => DoneMessageCreateUserState(msgFromApi: msg));
 }
 
 String _mapFailureToMessage(Failure failure) {

@@ -4,19 +4,9 @@ abstract class SignUpStates extends AuthStates {
   const SignUpStates();
 }
 
-class InitialState extends SignUpStates {
-  @override
-  List<Object?> get props => [];
-}
-
-class LoadingState extends SignUpStates {
-  @override
-  List<Object?> get props => [];
-}
-
-class MessageCreateUserState extends SignUpStates {
+class DoneMessageCreateUserState extends SignUpStates {
   final String msgFromApi;
-  const MessageCreateUserState({required this.msgFromApi});
+  const DoneMessageCreateUserState({required this.msgFromApi});
   @override
   List<Object?> get props => [msgFromApi];
 }

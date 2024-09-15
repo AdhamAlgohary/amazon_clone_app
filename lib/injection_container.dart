@@ -35,10 +35,8 @@ Future<void> init() async {
   gi.registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImplWithHttp(client: gi()));
   gi.registerLazySingleton<AuthLocalDataSource>(
-      () => AuthLocalDataSourceWithSharedPreferences(sharedPreferences: gi()));
-  //core
-  // gi.registerLazySingleton<NetworkInfo>(() =>
-  //     NetworkInfoImplWithConnectionChecker(internetConnectionChecker: gi()));
+      () => AuthLocalDataSourceImplWithSharedPreferences(sharedPreferences: gi()));
+
   gi.registerLazySingleton<NetworkInfo>(() =>
       NetworkInfoImplWithConnectionChecker(internetConnectionChecker: gi()));
   gi.registerLazySingleton(() => InternetConnectionChecker());
