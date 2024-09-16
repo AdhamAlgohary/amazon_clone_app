@@ -1,4 +1,4 @@
-import 'package:amazon_clone_app/core/strings/failures_msg.dart';
+import 'package:amazon_clone_app/core/constants/failures_msgs.dart';
 import 'package:amazon_clone_app/features/auth/domian/usecases/sign_up_new_user_use_case.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_events.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_states/auth_states.dart';
@@ -12,8 +12,10 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   final SignUpNewUserUseCase signUpNewUserUseCase;
 
   AuthBloc({required this.signUpNewUserUseCase}) : super(InitialState()) {
+
     on<AuthEvents>((event, emit) async {
       switch (event) {
+
         case SignUpEvent _:
           {
             emit(LoadingState());
@@ -21,6 +23,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
             emit(_eitherDoneMessageOrErrorState(userOrFailure));
             break;
           }
+          
       }
     });
   }
@@ -36,11 +39,14 @@ SignUpStates _eitherDoneMessageOrErrorState(Either<Failure, String> either) {
 String _mapFailureToMessage(Failure failure) {
   switch (failure) {
     case OffLineFailure():
-      return FailuresMsg.offLineFailureMsg;
+      return FailuresMsgs.offLineFailureMsg;
+
     case ServerFailure():
-      return FailuresMsg.serverFailureMsg;
+      return FailuresMsgs.serverFailureMsg;
+
     case ClientFailure():
-      return FailuresMsg.clientFailureMsg;
+      return FailuresMsgs.clientFailureMsg;
+
     default:
       return "Unexpected error ,Please try again later";
   }

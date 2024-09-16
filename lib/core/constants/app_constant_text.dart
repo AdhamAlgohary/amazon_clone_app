@@ -1,4 +1,6 @@
-class AppStrings {
+class AppConstantText {
+  static const keyForCachedData = "cached-user-data";
+
   static const titleOfApp = 'Clone Amazon Flutter App';
   static const authPageCreateAccountTxt = "Create Account";
   static const authPageNameHintTxt = "First and last name";

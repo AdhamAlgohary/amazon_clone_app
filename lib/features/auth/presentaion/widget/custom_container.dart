@@ -1,6 +1,7 @@
-import 'package:amazon_clone_app/core/theme/app_colors.dart';
-import 'package:amazon_clone_app/core/utils/screen_size.dart';
+import 'package:amazon_clone_app/config/theme/app_pallet_colors/light_pallet_colors.dart';
+import 'package:amazon_clone_app/core/utils/helpers/screen_size.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_states.dart';
+
 import 'package:flutter/material.dart';
 
 class CustomContainer extends StatelessWidget {
@@ -10,6 +11,7 @@ class CustomContainer extends StatelessWidget {
   final double horizontalMargin;
   final String selectedSignUpOrSignInForm;
   final HoldChangableDataStates state;
+  
   const CustomContainer(
       {super.key,
       required this.child,
@@ -34,10 +36,10 @@ class CustomContainer extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
               width: 0.01 * screenWidth,
-              color: LightAppColors.lightDisableOrHintItem),
+              color: LightPalletColor.lightDisableOrHintItem),
           color: state.selectedSignInOrSignUp == selectedSignUpOrSignInForm
-              ? LightAppColors.lightSurfaceVariant
-              : LightAppColors.lightDisableOrHintItem,
+              ? LightPalletColor.lightSurfaceVariant
+              : LightPalletColor.lightDisableOrHintItem,
         ),
         child: child);
   }

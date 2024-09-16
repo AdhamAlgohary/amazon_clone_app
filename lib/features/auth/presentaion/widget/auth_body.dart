@@ -1,6 +1,6 @@
-import 'package:amazon_clone_app/core/strings/app_strings.dart';
-import 'package:amazon_clone_app/core/utils/screen_size.dart';
-import 'package:amazon_clone_app/core/utils/snackbar_message.dart';
+import 'package:amazon_clone_app/core/constants/app_constant_text.dart';
+import 'package:amazon_clone_app/core/utils/helpers/screen_size.dart';
+import 'package:amazon_clone_app/core/utils/ui/snackbar_message.dart';
 import 'package:amazon_clone_app/core/widgets/loading_widget.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_bloc.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_states/auth_states.dart';
@@ -55,7 +55,7 @@ class AuthBody extends StatelessWidget {
         children: [
           _handleOrientationChanges(
               orientation: orientation,
-              selectedSignUpOrSignInForm: AppStrings.authPageCreateAccountTxt,
+              selectedSignUpOrSignInForm: AppConstantText.authPageCreateAccountTxt,
               context: context,
               state: state,
               child: SignUpFormWidget(
@@ -67,7 +67,7 @@ class AuthBody extends StatelessWidget {
               )),
           _handleOrientationChanges(
             orientation: orientation,
-            selectedSignUpOrSignInForm: AppStrings.authPageSignInBtnTxt,
+            selectedSignUpOrSignInForm: AppConstantText.authPageSignInBtnTxt,
             context: context,
             state: state,
             child: SignInFormWidget(

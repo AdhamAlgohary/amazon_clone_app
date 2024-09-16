@@ -1,5 +1,5 @@
-import 'package:amazon_clone_app/core/strings/app_strings.dart';
-import 'package:amazon_clone_app/core/utils/screen_size.dart';
+import 'package:amazon_clone_app/core/constants/app_constant_text.dart';
+import 'package:amazon_clone_app/core/utils/helpers/screen_size.dart';
 import 'package:amazon_clone_app/core/widgets/custom_txt_form_field.dart';
 import 'package:amazon_clone_app/features/auth/domian/entities/user_entity.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_bloc.dart';
@@ -42,38 +42,38 @@ class SignUpFormWidget extends StatelessWidget {
       child: Column(
         children: [
           CustomRadioTile(
-            text: AppStrings.authPageCreateAccountTxt,
-            value: AppStrings.authPageCreateAccountTxt,
+            text: AppConstantText.authPageCreateAccountTxt,
+            value: AppConstantText.authPageCreateAccountTxt,
             state: state,
           ),
-          state.selectedSignInOrSignUp == AppStrings.authPageCreateAccountTxt
+          state.selectedSignInOrSignUp == AppConstantText.authPageCreateAccountTxt
               ? Column(
                   children: [
                     CustomTxtFormField(
                         textEditingController: nameController,
                         isObscure: false,
-                        hintText: AppStrings.authPageNameHintTxt),
+                        hintText: AppConstantText.authPageNameHintTxt),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 0.01 * screenHeight),
                       child: CustomTxtFormField(
                           textEditingController: emailController,
                           isObscure: false,
-                          hintText: AppStrings.authPageEmailHintTxt),
+                          hintText: AppConstantText.authPageEmailHintTxt),
                     ),
                     CustomTxtFormField(
                         textEditingController: passwordController,
                         isObscure: state.selectedShowPasswordOrNot == false
                             ? true
                             : false,
-                        hintText: AppStrings.authPagePasswordHintTxt),
+                        hintText: AppConstantText.authPagePasswordHintTxt),
                     CustomCheckBoxTile(
                       state: state,
                     ),
                     ElevatedButton(
                         onPressed: () =>
                             _validateFormThenCreateAccountBtnOnPressed(context),
-                        child: const Text(AppStrings.authPageCreateAccountTxt))
+                        child: const Text(AppConstantText.authPageCreateAccountTxt))
                   ],
                 )
               : Container()

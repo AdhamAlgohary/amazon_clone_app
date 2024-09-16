@@ -1,10 +1,10 @@
-import 'package:amazon_clone_app/core/utils/screen_size.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-abstract class AppTxtStyle {
-  static TextStyle largeLabelTxtStyle(BuildContext context) {
+import 'package:amazon_clone_app/core/utils/helpers/screen_size.dart';
+
+class AppTextStyle {
+   static TextStyle largeLabelTxtStyle(BuildContext context) {
     return GoogleFonts.rubik(
         textStyle: TextStyle(
             fontWeight: FontWeight.bold,

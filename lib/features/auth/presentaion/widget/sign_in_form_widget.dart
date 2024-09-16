@@ -1,11 +1,12 @@
-import 'package:amazon_clone_app/core/utils/screen_size.dart';
+import 'package:amazon_clone_app/core/constants/app_constant_text.dart';
+import 'package:amazon_clone_app/core/utils/helpers/screen_size.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_states.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/widget/custom_check_box_tile.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/widget/custom_radio_tile.dart';
+import '../../../../core/widgets/custom_txt_form_field.dart';
+
 import 'package:flutter/material.dart';
 
-import 'package:amazon_clone_app/core/strings/app_strings.dart';
-import '../../../../core/widgets/custom_txt_form_field.dart';
 
 class SignInFormWidget extends StatelessWidget {
   final TextEditingController emailController;
@@ -31,30 +32,30 @@ class SignInFormWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         CustomRadioTile(
-            text: AppStrings.authPageSignInBtnTxt,
-            value: AppStrings.authPageSignInBtnTxt,
+            text: AppConstantText.authPageSignInBtnTxt,
+            value: AppConstantText.authPageSignInBtnTxt,
             state: state),
         Form(
           key: formKey,
-          child: state.selectedSignInOrSignUp == AppStrings.authPageSignInBtnTxt
+          child: state.selectedSignInOrSignUp == AppConstantText.authPageSignInBtnTxt
               ? Column(
                   children: [
                     CustomTxtFormField(
                         textEditingController: emailController,
                         isObscure: false,
-                        hintText: AppStrings.authPageEmailHintTxt),
+                        hintText: AppConstantText.authPageEmailHintTxt),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 0.03 * screenHeight),
                       child: CustomTxtFormField(
                           textEditingController: passwordController,
                           isObscure: true,
-                          hintText: AppStrings.authPageShowPasswordTxt),
+                          hintText: AppConstantText.authPageShowPasswordTxt),
                     ),
                     CustomCheckBoxTile(state: state),
                     ElevatedButton(
                         onPressed: () {},
-                        child: const Text(AppStrings.authPageSignInBtnTxt))
+                        child: const Text(AppConstantText.authPageSignInBtnTxt))
                   ],
                 )
               : Container(),
