@@ -5,22 +5,21 @@ import 'package:amazon_clone_app/config/navigation/routes.dart';
 
 import 'package:flutter/material.dart';
 
-class AmazonCloneApp extends StatelessWidget{
+class AmazonCloneApp extends StatelessWidget {
   const AmazonCloneApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-   return MaterialApp( 
+    return MaterialApp(
+      title: 'Amazon Clone ',
+      debugShowCheckedModeBanner: false,
 
-    title: 'Amazon Clone ',
-    debugShowCheckedModeBanner: false,
-    
-    theme: AppLightTheme.lightTheme,
-    darkTheme: AppDarkTheme.darkTheme,
+      theme: AppLightTheme.lightTheme,
+      darkTheme: AppDarkTheme.darkTheme,
 
-    onGenerateRoute: (routeSettings) => AppRoute.generateRoute(routeSettings),
-    initialRoute: Routes.splash,
-
-   );
+      onGenerateRoute: (routeSettings) => AppRoute.generateRoute(routeSettings),
+      initialRoute: Routes.authPage,
+     
+    );
   }
 }

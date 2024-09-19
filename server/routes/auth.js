@@ -3,7 +3,7 @@ const authRouter = express.Router();
 const authController = require("../controllers/authController.js");
 
 const signUpPath = "/signUpNewUser";
-const signInPath = "/signIN";
+const signInPath = "/signIn";
 const tokenIsValidPath = "/tokenIsValid";
 
 //signUpRoute

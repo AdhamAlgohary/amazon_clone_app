@@ -15,7 +15,9 @@ class AuthLocalDataSourceWithSharedPreferences implements AuthLocalDataSource {
   @override
   Future<Unit> cacheUserData(User userData) {
     Map<String, dynamic> userDataToJson = userData.toJson();
+
     sharedPreferences.setString(AppConstantText.keyForCachedData , json.encode(userDataToJson));
+    
     return Future.value(unit);
   }
 }

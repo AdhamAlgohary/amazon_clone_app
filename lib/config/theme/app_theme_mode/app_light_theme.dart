@@ -17,6 +17,7 @@ class AppLightTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               foregroundColor: LightPalletColor.lightOnSurface,
+              backgroundColor: LightPalletColor.gold,
               textStyle: GoogleFonts.rubik(
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -24,6 +25,7 @@ class AppLightTheme {
               minimumSize: const Size(450, 50),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)))),
+
       checkboxTheme: const CheckboxThemeData(
           side: BorderSide(color: LightPalletColor.lightPrimary),
           checkColor: WidgetStatePropertyAll(LightPalletColor.lightPrimary),

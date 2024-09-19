@@ -9,11 +9,13 @@ class HoldChangableDataBloc
     on<HoldChangableDataEvents>((event, emit) async {
       switch (event) {
         case SelectSignUpOrSignInEvent _:
-          emit(state.copyWith(selectedSignInOrSignUp: event.value));
+          emit(HoldChangableDataStates(selectedSignInOrSignUp: event.value));
           break;
+
         case ToggleShowPasswordEvent _:
-          emit(state.copyWith(selectedShowPasswordOrNot: event.value));
+          emit(HoldChangableDataStates(selectedShowPasswordOrNot: event.value));
           break;
+
         default:
       }
     });

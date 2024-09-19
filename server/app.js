@@ -22,6 +22,6 @@ mongoose
   .catch((e) => console.log(` error : ${e.message}`));
 
 //Creating An API
-app.listen(PORT,"192.168.1.24", () => {
+app.listen(PORT,"192.168.1.12", () => {
   console.log(`Server running on port ${PORT}`);
 });

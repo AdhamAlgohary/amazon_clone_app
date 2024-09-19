@@ -43,7 +43,7 @@ const signIn = async (req, res) => {
       res.status(200).json({ token, ...userIsExisting._doc });
     } else {
       res.status(400).json({ msg: "Invalid email or password" });
-    }
+    } 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

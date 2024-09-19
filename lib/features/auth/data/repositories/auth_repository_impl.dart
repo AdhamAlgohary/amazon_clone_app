@@ -19,31 +19,31 @@ class AuthRepositoryImpl implements AuthRepository {
       required this.authLocalDataSource});
 
   @override
-  Future<Either<Failure, UserEntity>> signIn(
-      {required String email, required String password}) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final userData =
-            await authRemoteDataSource.signIn(email: email, password: password);
-        authLocalDataSource.cacheUserData(userData);
-        return Right(userData);
-      } on ServerException {
-        return const Left(ServerFailure());
-      }
-    } else {
-      return const Left(OffLineFailure());
-    }
-  }
+  Future<Either<Failure, User>> signIn(
+          {required UserEntity userEntity}) async =>
+          
+      _performActionWithNetworkCheck<User>(() async {
+        final User userModel = _mapUserEntityToUserModel(userEntity);
+        final user = await authRemoteDataSource.signIn(userModel);
+        return user;
+      });
 
   @override
   Future<Either<Failure, String>> signUpNewUser(
-      {required UserEntity userEntity}) async {
+      {required UserEntity userEntity}) async =>
+          
+      _performActionWithNetworkCheck<String>(() async {
+        final User userModel = _mapUserEntityToUserModel(userEntity);
+        final user = await authRemoteDataSource.signUpNewUser(userModel);
+        return user;
+      });
+
+  Future<Either<Failure, T>> _performActionWithNetworkCheck<T>(
+      Future<T> Function() action) async {
     if (await networkInfo.isConnected) {
       try {
-        final User userModel = User(userEntity.name, userEntity.email,
-            userEntity.password);
-        final user = await authRemoteDataSource.signUpNewUser(userModel);
-        return Right(user);
+        final result = await action();
+        return Right(result);
       } on ClientException {
         return const Left(ClientFailure());
       } on ServerException {
@@ -53,4 +53,9 @@ class AuthRepositoryImpl implements AuthRepository {
       return const Left(OffLineFailure());
     }
   }
+
+  User _mapUserEntityToUserModel(UserEntity userEntity) => User(
+      name: userEntity.name,
+      email: userEntity.email,
+      password: userEntity.password);
 }

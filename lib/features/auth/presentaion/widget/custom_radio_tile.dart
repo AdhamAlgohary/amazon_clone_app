@@ -9,11 +9,13 @@ class CustomRadioTile extends StatelessWidget {
   final String text;
   final String value;
   final HoldChangableDataStates state;
+
   const CustomRadioTile(
       {super.key,
       required this.text,
       required this.state,
       required this.value});
+      
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class CustomRadioTile extends StatelessWidget {
       value: value,
       groupValue: state.selectedSignInOrSignUp,
       title: Text(text),
+
       onChanged: (val) => context
           .read<HoldChangableDataBloc>()
           .add(SelectSignUpOrSignInEvent(val!)),

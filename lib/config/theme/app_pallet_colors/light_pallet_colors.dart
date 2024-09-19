@@ -10,19 +10,18 @@ abstract class LightPalletColor {
   static const lightError = Colors.red;
   static const lightOnError = Colors.black;
 
-  static const lightBackground = Color.fromRGBO(214, 213, 213, 1);
-  static const lightOnBackground = Colors.black;
-
   static const lightSurfaceVariant = Colors.white;
   static const lightOnSurfaceVariant = Colors.grey;
 
-  static const lightSurface = Color(0xFFF7BE75);
+  static const lightSurface = Color.fromARGB(255, 209, 209, 209);
   static const lightOnSurface = Colors.black;
 
   static const lightOutlineVariant = Colors.black;
   static const lightOutline = Colors.lightBlue;
   
   static const lightDisableOrHintItem = Color.fromARGB(255, 192, 191, 191);
+
+  static const gold=Color(0xffFF9900);
 
   static const lightColorSchema = ColorScheme.light(
     brightness: Brightness.light,
