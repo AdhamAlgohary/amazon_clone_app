@@ -9,6 +9,7 @@ class CustomRadioTile extends StatelessWidget {
   final String text;
   final String value;
   final HoldChangableDataStates state;
+
   const CustomRadioTile(
       {super.key,
       required this.text,
@@ -18,13 +19,16 @@ class CustomRadioTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RadioListTile(
-      contentPadding: const EdgeInsets.only(left: 0),
-      value: value,
-      groupValue: state.selectedSignInOrSignUp,
-      title: Text(text),
-      onChanged: (val) => context
-          .read<HoldChangableDataBloc>()
-          .add(SelectSignUpOrSignInEvent(val!)),
-    );
+        contentPadding: const EdgeInsets.only(left: 0),
+        value: value,
+        groupValue: state.selectedSignInOrSignUp,
+        title: Text(text),
+
+        onChanged: (val) => context
+            .read<HoldChangableDataBloc>()
+            .add(SelectedOrNotSelectedEvent(
+              selectedSignUpOrSignInValue: val!,
+              selectedShowPasswordOrNotValue: state.selectedShowPasswordOrNot
+            )));
   }
 }

@@ -1,4 +1,4 @@
-import 'package:amazon_clone_app/core/strings/app_strings.dart';
+import 'package:amazon_clone_app/core/constants/app_constant_text.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_bloc.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_events.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_states.dart';
@@ -13,13 +13,13 @@ class CustomCheckBoxTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
-      contentPadding: const EdgeInsets.only(left: 0),
-      controlAffinity: ListTileControlAffinity.leading,
-      title: const Text(AppStrings.authPageShowPasswordTxt),
-      value: state.selectedShowPasswordOrNot,
-      onChanged: (val) => context
-          .read<HoldChangableDataBloc>()
-          .add(ToggleShowPasswordEvent(val!)),
-    );
+        contentPadding: const EdgeInsets.only(left: 0),
+        controlAffinity: ListTileControlAffinity.leading,
+        title: const Text(AppConstantText.authPageShowPasswordTxt),
+        value: state.selectedShowPasswordOrNot,
+
+        onChanged: (val) => context
+            .read<HoldChangableDataBloc>()
+            .add(SelectedOrNotSelectedEvent( selectedShowPasswordOrNotValue: val!,selectedSignUpOrSignInValue: state.selectedSignInOrSignUp)));
   }
 }

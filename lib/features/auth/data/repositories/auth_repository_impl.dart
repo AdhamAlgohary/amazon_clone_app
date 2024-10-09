@@ -7,7 +7,9 @@ import 'package:amazon_clone_app/features/auth/data/models/user.dart';
 import 'package:amazon_clone_app/features/auth/domian/entities/user_entity.dart';
 
 import 'package:dartz/dartz.dart';
+import '../../../../core/constants/app_constant_text.dart';
 import '../../domian/repositories/auth_repository.dart';
+import '../datasources/auth_local_data_sorce/auth_local_data_sorce_impl_with_shared_preferences.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final NetworkInfo networkInfo;
@@ -20,31 +22,39 @@ class AuthRepositoryImpl implements AuthRepository {
       required this.authLocalDataSource});
 
   @override
-  Future<Either<Failure, UserEntity>> signIn({required UserEntity userEntity}) {
-    return _performActionWithNetworkCheck<UserEntity>(() async {
-      final User userModel = _mapUserEntityToModel(userEntity);
-      final userData = await authRemoteDataSource.signIn(userModel);
-      // await authLocalDataSource.cacheUserData(userData);
-      return userData;
-    });
-  }
+  Future<Either<Failure, Unit>> signIn(
+          {required UserEntity userEntity}) async =>
+      _performActionWithNetworkCheck<Unit>(() async {
+        final User userModel = _mapUserEntityToUserModel(userEntity);
+        final authLocalDataSourcee =
+            AuthLocalDataSourceWithSharedPreferences.init();
+        final userToken = await authRemoteDataSource.signIn(userModel);
+        authLocalDataSourcee.setValue<String>(
+            key: AppConstantText.keyForCachedUserToken, value: userToken);
+
+        return unit;
+      });
 
   @override
-  Future<Either<Failure, String>> signUpNewUser({
-    required UserEntity userEntity,
-  }) {
-    return _performActionWithNetworkCheck<String>(
-      () async {
-        final User userModel = _mapUserEntityToModel(userEntity);
+  Future<Either<Failure, String>> signUpNewUser(
+          {required UserEntity userEntity}) async =>
+      _performActionWithNetworkCheck<String>(() async {
+        final User userModel = _mapUserEntityToUserModel(userEntity);
         final msgFromApi = await authRemoteDataSource.signUpNewUser(userModel);
+
         return msgFromApi;
-      },
-    );
-  }
+      });
+
+  @override
+  Future<Either<Failure, UserEntity>> getUserData() async =>
+      _performActionWithNetworkCheck<User>(() async {
+        final userData = await authRemoteDataSource.getUserData();
+
+        return userData;
+      });
 
   Future<Either<Failure, T>> _performActionWithNetworkCheck<T>(
-    Future<T> Function() action,
-  ) async {
+      Future<T> Function() action) async {
     if (await networkInfo.isConnected) {
       try {
         final result = await action();
@@ -59,12 +69,9 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
-  User _mapUserEntityToModel(UserEntity userEntity) {
-    return User(
+
+  User _mapUserEntityToUserModel(UserEntity userEntity) => User(
       name: userEntity.name,
       email: userEntity.email,
-      password: userEntity.password,
-    );
-  }
-
+      password: userEntity.password);
 }

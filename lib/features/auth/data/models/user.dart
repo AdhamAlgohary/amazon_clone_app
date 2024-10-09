@@ -6,7 +6,11 @@ part "user.g.dart";
 @JsonSerializable()
 class User extends UserEntity {
   const User(
-      {super.name = " ", required super.email, required super.password});
+
+      {
+      super.name,
+      required super.email,
+      required super.password});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);

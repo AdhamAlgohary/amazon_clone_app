@@ -1,6 +1,5 @@
-import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_bloc.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_bloc.dart';
-import 'package:amazon_clone_app/features/auth/presentaion/widget/auth_body.dart';
+import 'package:amazon_clone_app/features/auth/presentaion/components/auth_page_content.dart';
 import 'package:amazon_clone_app/injection_container.dart' as ic;
 
 import 'package:flutter/material.dart';
@@ -18,6 +17,7 @@ class _AuthPageState extends State<AuthPage> {
   late final TextEditingController passwordController;
   late final GlobalKey<FormState> signUpFormKey;
   late final GlobalKey<FormState> signInFormKey;
+
   @override
   void initState() {
     nameController = TextEditingController();
@@ -38,19 +38,16 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => ic.gi<AuthBloc>()),
-        BlocProvider(create: (_) => ic.gi<HoldChangableDataBloc>())
-      ],
-      child: AuthBody(
+    return BlocProvider<HoldChangableDataBloc>(
+      create: (_) => ic.gi<HoldChangableDataBloc>(),
+
+      child: AuthPageContent(
         nameController: nameController,
         emailController: emailController,
         passwordController: passwordController,
         signUpFormKey: signUpFormKey,
         signInFormKey: signInFormKey,
       ),
-    ));
+    );
   }
 }
