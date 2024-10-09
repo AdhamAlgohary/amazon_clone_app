@@ -9,7 +9,6 @@ import 'package:amazon_clone_app/features/auth/domian/entities/user_entity.dart'
 import 'package:dartz/dartz.dart';
 import '../../../../core/constants/app_constant_text.dart';
 import '../../domian/repositories/auth_repository.dart';
-import '../datasources/auth_local_data_sorce/auth_local_data_sorce_impl_with_shared_preferences.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final NetworkInfo networkInfo;
@@ -26,12 +25,11 @@ class AuthRepositoryImpl implements AuthRepository {
           {required UserEntity userEntity}) async =>
       _performActionWithNetworkCheck<Unit>(() async {
         final User userModel = _mapUserEntityToUserModel(userEntity);
-        final authLocalDataSourcee =
-            AuthLocalDataSourceWithSharedPreferences.init();
         final userToken = await authRemoteDataSource.signIn(userModel);
-        authLocalDataSourcee.setValue<String>(
-            key: AppConstantText.keyForCachedUserToken, value: userToken);
 
+        await authLocalDataSource.setValue<String>(
+            key: AppConstantText.keyForCachedUserToken, value: userToken);
+        
         return unit;
       });
 
@@ -68,7 +66,6 @@ class AuthRepositoryImpl implements AuthRepository {
       return const Left(OffLineFailure());
     }
   }
-
 
   User _mapUserEntityToUserModel(UserEntity userEntity) => User(
       name: userEntity.name,

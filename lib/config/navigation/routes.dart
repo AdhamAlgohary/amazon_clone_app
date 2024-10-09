@@ -2,9 +2,11 @@ class Routes {
 //Intro
 static const String splash = '/';
 
-//Auth
+static const bottomBar = '/bottomBar';
+//features
 static const authPage = '/authPage';
-
-//home
 static const homePage='/homePage';
+static const accountPage ='/accountPage';
+static const cartPage = '/cartPage';
+
 }

@@ -32,6 +32,7 @@ class _AmazonCloneAppState extends State<AmazonCloneApp> {
       BlocProvider.of<AuthBloc>(context).userToken =
           await authLocalDataSourceWithSharedPreferences.getValue(
               key: AppConstantText.keyForCachedUserToken);
+            
     });
     super.initState();
   }

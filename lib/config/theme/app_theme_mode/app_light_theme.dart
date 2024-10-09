@@ -30,6 +30,13 @@ class AppLightTheme {
           side: BorderSide(color: LightPalletColor.lightPrimary),
           checkColor: WidgetStatePropertyAll(LightPalletColor.lightPrimary),
           fillColor:
-              WidgetStatePropertyAll(LightPalletColor.lightSurfaceVariant))
+              WidgetStatePropertyAll(LightPalletColor.lightSurfaceVariant)),
+
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor:LightPalletColor.lightOutline,
+        unselectedItemColor: LightPalletColor.lightOnSurface,
+        backgroundColor: LightPalletColor.lightOnSecondary
+      )      
+
   );
 }
