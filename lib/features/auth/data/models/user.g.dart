@@ -7,10 +7,6 @@ part of 'user.dart';
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
-<<<<<<< HEAD
-
-=======
->>>>>>> refactor-code-and-architcture-branch
       name: json['name'] as String?,
       email: json['email'] as String,
       password: json['password'] as String,

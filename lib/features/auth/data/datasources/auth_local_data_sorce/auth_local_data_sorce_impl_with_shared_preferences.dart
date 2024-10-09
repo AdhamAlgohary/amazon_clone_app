@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import 'package:amazon_clone_app/features/auth/data/datasources/auth_local_data_sorce/auth_local_data_source.dart';
-import 'package:amazon_clone_app/core/constants/app_constant_text.dart';
-=======
-import 'package:amazon_clone_app/core/constants/app_constant_text.dart';
-import 'package:amazon_clone_app/features/auth/data/datasources/auth_local_data_sorce/auth_local_data_source.dart';
->>>>>>> refactor-code-and-architcture-branch
+import '../../../../../core/constants/app_constant_text.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,6 +19,7 @@ class AuthLocalDataSourceWithSharedPreferences implements AuthLocalDataSource {
     return _sharedPreferences;
   }
 
+  
   @override
   Future<bool> setValue<T>({required String key, required T value}) async {
     await _initSharedPrefernces();

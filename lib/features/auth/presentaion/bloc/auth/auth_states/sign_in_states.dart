@@ -13,7 +13,4 @@ class SuccessfulLoginState extends SignInStates {
 }
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> refactor-code-and-architcture-branch

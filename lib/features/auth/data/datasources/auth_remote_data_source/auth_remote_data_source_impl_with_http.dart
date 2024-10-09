@@ -13,18 +13,11 @@ class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
   const AuthRemoteDataSourceImplWithHttp({required this.client});
 
   @override
-<<<<<<< HEAD
 
   Future<String> signIn(User user) async {
     final http.Response response = await ApiHelper.postRequest(
         url: ApiPath.signInEndPoint, body: user.toJson());
 
-=======
-  Future<String> signIn(User user) async {
-    final http.Response response = await ApiHelper.postRequest(
-        url: ApiPath.signInEndPoint, body: user.toJson());
-
->>>>>>> refactor-code-and-architcture-branch
     return ApiHelper.handleResponse<String>(
         response: response,
         onSuccess: /*<String>*/(decodedJson) => decodedJson["userToken"]);
@@ -32,10 +25,7 @@ class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
 
   @override
   Future<String> signUpNewUser(User user) async {
-<<<<<<< HEAD
 
-=======
->>>>>>> refactor-code-and-architcture-branch
     final http.Response response = await ApiHelper.postRequest(
         url: ApiPath.signUpEndPoint, body: user.toJson());
 
