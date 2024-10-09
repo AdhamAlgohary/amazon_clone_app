@@ -24,6 +24,7 @@ class CustomBottomBar extends StatelessWidget {
 
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: state.pageIndex,
+          
           onTap: (pageIndex) =>
               bottomAppBarOnTapFunc(context: context, pageIndex: pageIndex),
 
