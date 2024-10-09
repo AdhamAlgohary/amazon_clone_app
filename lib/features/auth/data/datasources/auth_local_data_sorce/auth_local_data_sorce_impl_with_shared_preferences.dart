@@ -42,8 +42,7 @@ class AuthLocalDataSourceWithSharedPreferences implements AuthLocalDataSource {
   Future<String?> getValue({required String key}) async {
     await _initSharedPrefernces();
     String? value;
-    value = _sharedPreferences.getString(key);
-
+    value =_sharedPreferences.getString(key);
     return value;
   }
 

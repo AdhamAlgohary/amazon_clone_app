@@ -1,3 +1,4 @@
+import 'package:amazon_clone_app/core/cubit/bottom_bar_cubit/bottom_bar_cubit_bloc.dart';
 import 'package:amazon_clone_app/features/auth/domian/usecases/get_user_data_use_case.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_bloc.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_bloc.dart';
@@ -21,7 +22,16 @@ import 'features/auth/data/datasources/auth_remote_data_source/auth_remote_data_
 final gi = GetIt.instance;
 
 Future<void> init() async {
-  
+  //core
+  gi.registerLazySingleton<NetworkInfo>(() =>
+      NetworkInfoImplWithConnectionChecker(internetConnectionChecker: gi()));
+  gi.registerLazySingleton(() => InternetConnectionChecker());
+  gi.registerFactory(() => BottomBarCubitBloc());
+  //external
+  final sharedPreferences = await SharedPreferences.getInstance();
+  gi.registerLazySingleton(() => sharedPreferences);
+  gi.registerLazySingleton(() => http.Client());
+
   // features : auth
   //Bloc
   gi.registerFactory(() => AuthBloc(
@@ -42,13 +52,5 @@ Future<void> init() async {
   gi.registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImplWithHttp(client: gi()));
   gi.registerLazySingleton<AuthLocalDataSource>(
-      () =>  AuthLocalDataSourceWithSharedPreferences());
-  //core
-  gi.registerLazySingleton<NetworkInfo>(() =>
-      NetworkInfoImplWithConnectionChecker(internetConnectionChecker: gi()));
-  gi.registerLazySingleton(() => InternetConnectionChecker());
-  //external
-  final sharedPreferences = await SharedPreferences.getInstance();
-  gi.registerLazySingleton(() => sharedPreferences);
-  gi.registerLazySingleton(() => http.Client());
+      () => AuthLocalDataSourceWithSharedPreferences());
 }

@@ -11,10 +11,12 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Future.delayed(const Duration(milliseconds: 1000)).then((_) => context
+    Future.delayed(const Duration(milliseconds: 1000)).then((_) { context
         .replaceScreen(BlocProvider.of<AuthBloc>(context).userToken != null
-            ? Routes.homePage
-            : Routes.authPage));
+            ? Routes.bottomBar
+            : Routes.authPage);
+          }
+            );
 
     return const Scaffold(
       body: Center(

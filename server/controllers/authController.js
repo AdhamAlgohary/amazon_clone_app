@@ -6,6 +6,7 @@ const constants = require("../constants.js");
 
 const PASSWORD_KEY = "passwordKey";
 
+
 const sendClientExceptionResponse = (res, msg) => 
   res.status(400).json({ responseFromApi: msg });
 
@@ -52,6 +53,7 @@ const signUpNewUser = async (req, res) => {
 ////Sign In Route////
 const signIn = async (req, res) => {
   try {
+
     if (userIsExisting) {
       const isMatch = await bcryptjs.compare(password, userIsExisting.password);
 

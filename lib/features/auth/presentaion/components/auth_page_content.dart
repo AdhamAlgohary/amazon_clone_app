@@ -89,7 +89,7 @@ class AuthPageContent extends StatelessWidget {
           break;
         }
       case SuccessfulLoginState _:
-        context.replaceScreen(Routes.homePage);
+        context.replaceScreen(Routes.bottomBar);
 
       case FailedState _:
         SnackbarMsg.showSnackBar(
