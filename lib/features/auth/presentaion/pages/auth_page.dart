@@ -1,4 +1,3 @@
-import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_bloc.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_bloc.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/components/auth_page_content.dart';
 import 'package:amazon_clone_app/injection_container.dart' as ic;
@@ -39,21 +38,15 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-
-      providers: [
-        BlocProvider(create: (_) => ic.gi<AuthBloc>()),
-        BlocProvider(create: (_) => ic.gi<HoldChangableDataBloc>())
-      ],
+    return BlocProvider<HoldChangableDataBloc>(
+      create: (_) => ic.gi<HoldChangableDataBloc>(),
 
       child: AuthPageContent(
-
         nameController: nameController,
         emailController: emailController,
         passwordController: passwordController,
         signUpFormKey: signUpFormKey,
         signInFormKey: signInFormKey,
-
       ),
     );
   }

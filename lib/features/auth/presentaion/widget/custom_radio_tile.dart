@@ -15,19 +15,20 @@ class CustomRadioTile extends StatelessWidget {
       required this.text,
       required this.state,
       required this.value});
-      
 
   @override
   Widget build(BuildContext context) {
     return RadioListTile(
-      contentPadding: const EdgeInsets.only(left: 0),
-      value: value,
-      groupValue: state.selectedSignInOrSignUp,
-      title: Text(text),
+        contentPadding: const EdgeInsets.only(left: 0),
+        value: value,
+        groupValue: state.selectedSignInOrSignUp,
+        title: Text(text),
 
-      onChanged: (val) => context
-          .read<HoldChangableDataBloc>()
-          .add(SelectSignUpOrSignInEvent(val!)),
-    );
+        onChanged: (val) => context
+            .read<HoldChangableDataBloc>()
+            .add(SelectedOrNotSelectedEvent(
+              selectedSignUpOrSignInValue: val!,
+              selectedShowPasswordOrNotValue: state.selectedShowPasswordOrNot
+            )));
   }
 }

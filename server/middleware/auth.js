@@ -1,19 +1,24 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/user.js");
+
 const authMiddleware = async (req, res, next) => {
   try {
-    const token = req.headers("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWNmMjRkN2ViZjUwODlkOGU4YTZiMiIsImlhdCI6MTcyMTY1MDgxOX0.tleX_mr6TNGjS3F_1Kydp4uwTICQPffYsJ7TwcBwUBc");
-    const isVerified = jwt.verify(token, "passwordKey");
-    if (isVerified) {
+    const userToken = req.header("cached-user-token");
+    const isVerified = jwt.verify(userToken, "passwordKey");
+    const userIsExisting = await User.findById({ _id: isVerified.id });
+
+    if (isVerified&&userIsExisting) {
       req.user = isVerified.id;
-      req.token = token;
+      req.userToken = userToken;
+
       next();
     } else {
       res
         .status(401)
-        .json({ msg: "Token verification failed, authorization denied." });
+        .json({ responseFromApi: "Token verification failed, authorization denied." });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ responseFromApi: error.message });
   }
 };
 

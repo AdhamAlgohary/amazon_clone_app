@@ -2,12 +2,20 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../../constants/app_constant_text.dart';
 import '../../constants/failures_msgs.dart';
 import '../../error/exception.dart';
 
 class ApiHelper {
   static final http.Client client = http.Client();
-  static const headers = {"Content-Type": "application/json"};
+  static const postRequestHeader = {"Content-Type": "application/json"};
+  static Map<String, String> getRequestHeader({required String userToken}) {
+    final Map<String, String> getRequestHeader = <String, String>{
+      "Content-Type": "application/json",
+      AppConstantText.keyForCachedUserToken: userToken
+    };
+    return getRequestHeader;
+  }
 
   const ApiHelper();
 
@@ -16,11 +24,18 @@ class ApiHelper {
     required Map<String, dynamic> body,
   }) async {
     final encodedBody = json.encode(body);
+
     return await client.post(
       Uri.parse(url),
-      headers: headers,
+      headers: postRequestHeader,
       body: encodedBody,
     );
+  }
+
+  static Future<http.Response> getRequest(
+      {required String url, required String userToken}) async {
+    return await client.get(Uri.parse(url),
+        headers: getRequestHeader(userToken: userToken));
   }
 
   static T handleResponse<T>({
@@ -30,20 +45,23 @@ class ApiHelper {
     final responseIsSuccess = response.statusCode == 200;
 
     if (responseIsSuccess) {
+
       Map<String, dynamic> decodedJson = json.decode(response.body);
       return onSuccess(decodedJson);
+      
     } else if (response.statusCode == 400) {
-      FailuresMsgs.clientFailureMsg = msgFromApi(json.decode(response.body));
+      FailuresMsgs.clientFailureMsg =
+          responseFromApi(json.decode(response.body));
       throw const ClientException();
     } else {
-      FailuresMsgs.serverFailureMsg = msgFromApi(json.decode(response.body));
+      FailuresMsgs.serverFailureMsg =
+          responseFromApi(json.decode(response.body));
       throw const ServerException();
     }
   }
 
- static String msgFromApi(Map<String, dynamic> decodedJson) {
-    final String successOrFailedMsgFromApi = decodedJson["msgFromApi"];
-    return successOrFailedMsgFromApi;
+  static String responseFromApi(Map<String, dynamic> decodedJson) {
+    final String responseFromApi = decodedJson["responseFromApi"];
+    return responseFromApi;
   }
-
 }

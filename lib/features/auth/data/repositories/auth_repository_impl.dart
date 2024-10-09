@@ -6,7 +6,9 @@ import 'package:amazon_clone_app/features/auth/data/datasources/auth_remote_data
 import 'package:amazon_clone_app/features/auth/data/models/user.dart';
 import 'package:amazon_clone_app/features/auth/domian/entities/user_entity.dart';
 import 'package:dartz/dartz.dart';
+import '../../../../core/constants/app_constant_text.dart';
 import '../../domian/repositories/auth_repository.dart';
+import '../datasources/auth_local_data_sorce/auth_local_data_sorce_impl_with_shared_preferences.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final NetworkInfo networkInfo;
@@ -19,23 +21,35 @@ class AuthRepositoryImpl implements AuthRepository {
       required this.authLocalDataSource});
 
   @override
-  Future<Either<Failure, User>> signIn(
+  Future<Either<Failure, Unit>> signIn(
           {required UserEntity userEntity}) async =>
-          
-      _performActionWithNetworkCheck<User>(() async {
+      _performActionWithNetworkCheck<Unit>(() async {
         final User userModel = _mapUserEntityToUserModel(userEntity);
-        final user = await authRemoteDataSource.signIn(userModel);
-        return user;
+        final authLocalDataSourcee =
+            AuthLocalDataSourceWithSharedPreferences.init();
+        final userToken = await authRemoteDataSource.signIn(userModel);
+        authLocalDataSourcee.setValue<String>(
+            key: AppConstantText.keyForCachedUserToken, value: userToken);
+
+        return unit;
       });
 
   @override
   Future<Either<Failure, String>> signUpNewUser(
-      {required UserEntity userEntity}) async =>
-          
+          {required UserEntity userEntity}) async =>
       _performActionWithNetworkCheck<String>(() async {
         final User userModel = _mapUserEntityToUserModel(userEntity);
-        final user = await authRemoteDataSource.signUpNewUser(userModel);
-        return user;
+        final msgFromApi = await authRemoteDataSource.signUpNewUser(userModel);
+
+        return msgFromApi;
+      });
+
+  @override
+  Future<Either<Failure, UserEntity>> getUserData() async =>
+      _performActionWithNetworkCheck<User>(() async {
+        final userData = await authRemoteDataSource.getUserData();
+
+        return userData;
       });
 
   Future<Either<Failure, T>> _performActionWithNetworkCheck<T>(

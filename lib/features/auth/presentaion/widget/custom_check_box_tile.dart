@@ -13,15 +13,13 @@ class CustomCheckBoxTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
-      contentPadding: const EdgeInsets.only(left: 0),
-      controlAffinity: ListTileControlAffinity.leading,
-      title: const Text(AppConstantText.authPageShowPasswordTxt),
-      value: state.selectedShowPasswordOrNot,
+        contentPadding: const EdgeInsets.only(left: 0),
+        controlAffinity: ListTileControlAffinity.leading,
+        title: const Text(AppConstantText.authPageShowPasswordTxt),
+        value: state.selectedShowPasswordOrNot,
 
-      onChanged: (val) => context
-          .read<HoldChangableDataBloc>()
-          .add(ToggleShowPasswordEvent(val!)),
-
-    );
+        onChanged: (val) => context
+            .read<HoldChangableDataBloc>()
+            .add(SelectedOrNotSelectedEvent( selectedShowPasswordOrNotValue: val!,selectedSignUpOrSignInValue: state.selectedSignInOrSignUp)));
   }
 }

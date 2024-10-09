@@ -1,14 +1,17 @@
 import 'package:amazon_clone_app/core/constants/app_constant_text.dart';
+import 'package:amazon_clone_app/core/utils/extensions.dart';
 import 'package:amazon_clone_app/core/utils/helpers/screen_size.dart';
 import 'package:amazon_clone_app/core/utils/ui/snackbar_message.dart';
 import 'package:amazon_clone_app/core/widgets/loading_widget.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_bloc.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_states/auth_states.dart';
+import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_states/sign_in_states.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_bloc.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/hold_changable_data/hold_changable_data_states.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/bloc/auth/auth_states/sign_up_states.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/components/sign_in_form_component.dart';
 import 'package:amazon_clone_app/features/auth/presentaion/components/sign_up_form_component.dart';
+import '../../../../config/navigation/routes.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +22,6 @@ class AuthPageContent extends StatelessWidget {
   final TextEditingController passwordController;
   final GlobalKey<FormState> signUpFormKey;
   final GlobalKey<FormState> signInFormKey;
-  
 
   const AuthPageContent({
     super.key,
@@ -45,7 +47,7 @@ class AuthPageContent extends StatelessWidget {
     }
 
     return BlocBuilder<HoldChangableDataBloc, HoldChangableDataStates>(
-        builder: (context, state) => OrientationBuilder(
+        builder: (_, state) => OrientationBuilder(
               builder: (_, orientation) => ListView(
                 padding: EdgeInsets.only(top: 0.1 * screenHeight),
                 children: [
@@ -86,15 +88,14 @@ class AuthPageContent extends StatelessWidget {
           );
           break;
         }
-      case ErrorCreateUserState _:
-        {
-          SnackbarMsg.showSnackBar(
-            context: context,
-            msg: state.failedMsg,
-            isSuccessSnacBar: false,
-          );
-          break;
-        }
+      case SuccessfulLoginState _:
+        context.replaceScreen(Routes.homePage);
+
+      case FailedState _:
+        SnackbarMsg.showSnackBar(
+            context: context, msg: state.failedMsg, isSuccessSnacBar: false);
+        break;
+
       default:
         const Text("No State");
     }

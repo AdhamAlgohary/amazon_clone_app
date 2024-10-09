@@ -7,20 +7,16 @@ abstract class HoldChangableDataEvents extends Equatable {
   List<Object> get props => [];
 }
 
-class SelectSignUpOrSignInEvent extends HoldChangableDataEvents {
-  final String value;
+class SelectedOrNotSelectedEvent extends HoldChangableDataEvents {
+  final String selectedSignUpOrSignInValue;
+  final bool selectedShowPasswordOrNotValue;
 
-  const SelectSignUpOrSignInEvent(this.value);
-
-  @override
-  List<Object> get props => [value];
-}
-
-class ToggleShowPasswordEvent extends HoldChangableDataEvents {
-  final bool value;
-
-  const ToggleShowPasswordEvent(this.value);
+  const SelectedOrNotSelectedEvent(
+      {required this.selectedSignUpOrSignInValue,
+      required this.selectedShowPasswordOrNotValue});
 
   @override
-  List<Object> get props => [value];
+  List<Object> get props => [selectedSignUpOrSignInValue,selectedShowPasswordOrNotValue];
 }
+
+

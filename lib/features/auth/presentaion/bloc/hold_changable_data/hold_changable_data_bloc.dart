@@ -7,17 +7,12 @@ class HoldChangableDataBloc
     extends Bloc<HoldChangableDataEvents, HoldChangableDataStates> {
   HoldChangableDataBloc() : super(const HoldChangableDataStates()) {
     on<HoldChangableDataEvents>((event, emit) async {
-      switch (event) {
-        case SelectSignUpOrSignInEvent _:
-          emit(HoldChangableDataStates(selectedSignInOrSignUp: event.value));
-          break;
-
-        case ToggleShowPasswordEvent _:
-          emit(HoldChangableDataStates(selectedShowPasswordOrNot: event.value));
-          break;
-
-        default:
+      if (event is SelectedOrNotSelectedEvent) {
+        emit(HoldChangableDataStates(
+              selectedSignInOrSignUp: event.selectedSignUpOrSignInValue,
+              selectedShowPasswordOrNot: event.selectedShowPasswordOrNotValue));
       }
+      
     });
   }
 }

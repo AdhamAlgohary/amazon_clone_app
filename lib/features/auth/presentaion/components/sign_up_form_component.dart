@@ -100,7 +100,7 @@ class SignUpFormComponent extends StatelessWidget {
       
                       ElevatedButton(
                           onPressed: () =>
-                              _validateFormThenCreateAccountBtnOnPressed(context),
+                              _performActionAfterValidateForm(context),
                           child: const Text(AppConstantText.authPageCreateAccountTxt))
                     ],
                   )
@@ -111,7 +111,7 @@ class SignUpFormComponent extends StatelessWidget {
     );
   }
 
-  void _validateFormThenCreateAccountBtnOnPressed(BuildContext context) {
+  void _performActionAfterValidateForm(BuildContext context) {
     final isValid = formKey.currentState!.validate();
     if (isValid) {
       final user = UserEntity(

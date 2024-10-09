@@ -19,3 +19,9 @@ class SignInEvent extends AuthEvents {
   @override
   List<Object?> get props => [user];
 }
+
+class GetUserDataEvent extends AuthEvents{
+  const GetUserDataEvent();
+  @override
+  List<Object?> get props =>[];
+}
