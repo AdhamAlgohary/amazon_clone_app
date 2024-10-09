@@ -6,18 +6,11 @@ const constants = require("../constants.js");
 
 const PASSWORD_KEY = "passwordKey";
 
-<<<<<<< HEAD
-const sendClientExceptionResponse = (res, msg) =>
-  res.status(400).json({ responseFromApi: msg });
-
-const sendServerExceptionResponse = (res, error) =>
-=======
 const sendClientExceptionResponse = (res, msg) => 
   res.status(400).json({ responseFromApi: msg });
 
 
 const sendServerExceptionResponse = (res, error) => 
->>>>>>> refactor-code-and-architcture-branch
   res.status(500).json({ responseFromApi: error.message });
 
 ////Sign Up Route////
@@ -33,12 +26,7 @@ const signUpNewUser = async (req, res) => {
         res,
         "User with same email already exist"
       );
-<<<<<<< HEAD
-    else if (!userIsValid)
-      return sendClientExceptionResponse(res, "Please enter valid e-mail");
-    else if (passwordIsNotValid)
-      return sendClientExceptionResponse(res, "Please enter long password");
-=======
+
 
     else if (!userIsValid)
       return sendClientExceptionResponse(res, "Please enter valid e-mail");
@@ -46,7 +34,6 @@ const signUpNewUser = async (req, res) => {
     else if (passwordIsNotValid)
       return sendClientExceptionResponse(res, "Please enter long password");
 
->>>>>>> refactor-code-and-architcture-branch
     else {
       const hashedPassword = await bcryptjs.hash(password, 10);
       let user = new User({
@@ -65,35 +52,23 @@ const signUpNewUser = async (req, res) => {
 ////Sign In Route////
 const signIn = async (req, res) => {
   try {
-<<<<<<< HEAD
-=======
-    const { email, password } = req.body;
-    const userIsExisting = await User.findOne({ email });
- 
->>>>>>> refactor-code-and-architcture-branch
     if (userIsExisting) {
       const isMatch = await bcryptjs.compare(password, userIsExisting.password);
 
       if (isMatch) {
         const userToken = jwt.sign({ id: userIsExisting._id }, PASSWORD_KEY);
-<<<<<<< HEAD
-        res.status(200).json({ userToken });
-      } else return sendClientExceptionResponse(res, "Invalid password");
-=======
+
         res.status(200).json({ userToken});
 
       } else return sendClientExceptionResponse(res, "Invalid password");
 
->>>>>>> refactor-code-and-architcture-branch
     } else return sendClientExceptionResponse(res, "Invalid email ");
   } catch (error) {
     return sendServerExceptionResponse(res, error);
   }
 };
 
-<<<<<<< HEAD
 
-=======
 ////Token Is Valid Route////
 // const tokenIsValid = async (req, res) => {
 //   try {
@@ -108,7 +83,6 @@ const signIn = async (req, res) => {
 //     sendServerExceptionResponse(res, error);
 //   }
 // };
->>>>>>> refactor-code-and-architcture-branch
 
 module.exports = {
   signUpNewUser,
