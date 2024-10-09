@@ -1,8 +1,5 @@
 import 'package:amazon_clone_app/core/cubit/bottom_bar_cubit/bottom_bar_cubit_bloc.dart';
 import 'package:amazon_clone_app/core/cubit/bottom_bar_cubit/bottom_bar_cubit_state.dart';
-import 'package:amazon_clone_app/features/account/presentation/pages/account_page.dart';
-import 'package:amazon_clone_app/features/cart/presentation/pages/cart_page.dart';
-import 'package:amazon_clone_app/features/home/presentation/pages/home_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,15 +9,10 @@ class CustomBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pages = [
-      const HomePage(),
-      const AccountPage(),
-      const CartPage(),
-    ];
 
     return BlocBuilder<BottomBarCubitBloc, BottomBarCubitState>(
       builder: (_, state) => Scaffold(
-        body: pages[state.pageIndex],
+        body: state.pages[state.pageIndex],
 
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: state.pageIndex,
