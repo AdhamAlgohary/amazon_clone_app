@@ -69,7 +69,10 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-code-and-architcture-branch
   User _mapUserEntityToUserModel(UserEntity userEntity) => User(
       name: userEntity.name,
       email: userEntity.email,

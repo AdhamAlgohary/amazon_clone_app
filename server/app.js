@@ -22,8 +22,11 @@ mongoose
   .catch((e) => console.log(` error : ${e.message}`));
 
 //Creating An API
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> refactor-code-and-architcture-branch
 app.listen(PORT,"192.168.1.13", () => {
   console.log(`Server running on port ${PORT}`);
 });

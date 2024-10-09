@@ -59,7 +59,10 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
 AuthStates _eitherSuccessfulStateOrErrorState<T>(Either<Failure, T> either,
     AuthStates Function(T responseFromApi) successfulState) {
   return either.fold(
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-code-and-architcture-branch
       (failure) => FailedState(failedMsg: _mapFailureToMessage(failure)),
       successfulState);
 }

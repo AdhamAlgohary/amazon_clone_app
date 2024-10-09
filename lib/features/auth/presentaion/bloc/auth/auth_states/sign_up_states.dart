@@ -4,7 +4,10 @@ abstract class SignUpStates extends AuthStates {
   const SignUpStates();
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-code-and-architcture-branch
 class MessageCreateUserState extends SignUpStates {
   final String msgFromApi;
   

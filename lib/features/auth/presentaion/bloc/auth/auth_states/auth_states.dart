@@ -15,7 +15,10 @@ class LoadingState extends AuthStates {
   List<Object?> get props => [];
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-code-and-architcture-branch
 class FailedState extends AuthStates {
   final String failedMsg;
 
@@ -23,4 +26,8 @@ class FailedState extends AuthStates {
 
   @override
   List<Object?> get props => [failedMsg];
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> refactor-code-and-architcture-branch

@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import 'package:amazon_clone_app/features/auth/data/datasources/auth_local_data_sorce/auth_local_data_source.dart';
 import 'package:amazon_clone_app/core/constants/app_constant_text.dart';
+=======
+import 'package:amazon_clone_app/core/constants/app_constant_text.dart';
+import 'package:amazon_clone_app/features/auth/data/datasources/auth_local_data_sorce/auth_local_data_source.dart';
+>>>>>>> refactor-code-and-architcture-branch
 
 import 'package:shared_preferences/shared_preferences.dart';
 

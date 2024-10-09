@@ -9,7 +9,10 @@ class SignInUseCase {
 
   const SignInUseCase(this._repository);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-code-and-architcture-branch
   Future<Either<Failure, Unit>> call(
           UserEntity userEntity) async =>
       await _repository.signIn(userEntity:userEntity );

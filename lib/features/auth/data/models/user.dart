@@ -6,7 +6,10 @@ part "user.g.dart";
 @JsonSerializable()
 class User extends UserEntity {
   const User(
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-code-and-architcture-branch
       {
       super.name,
       required super.email,
