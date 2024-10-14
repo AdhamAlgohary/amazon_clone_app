@@ -1,6 +1,7 @@
 import 'package:amazon_clone_app/features/account/presentation/pages/account_page.dart';
 import 'package:amazon_clone_app/features/cart/presentation/pages/cart_page.dart';
-import 'package:amazon_clone_app/features/home/presentation/pages/home_page.dart';
+import 'package:amazon_clone_app/features/home/presentation/pages/home_page.dart';  
+
 import 'package:equatable/equatable.dart';
 
 abstract class BottomBarCubitState extends Equatable {

@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+
+const responseMsgs=require("../constants/response_msgs.js")
 const User = require("../models/user.js");
 
 const authMiddleware = async (req, res, next) => {
@@ -15,7 +17,7 @@ const authMiddleware = async (req, res, next) => {
     } else {
       res
         .status(401)
-        .json({ responseFromApi: "Token verification failed, authorization denied." });
+        .json({ responseFromApi: responseMsgs.INVALID_TOKEN_MSG });
     }
   } catch (error) {
     res.status(500).json({ responseFromApi: error.message });

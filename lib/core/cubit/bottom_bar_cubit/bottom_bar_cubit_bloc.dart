@@ -1,4 +1,5 @@
-import 'package:amazon_clone_app/core/cubit/bottom_bar_cubit/bottom_bar_cubit_state.dart';
+import 'package:amazon_clone_app/core/core_import_packages.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomBarCubitBloc extends Cubit<BottomBarCubitState> {

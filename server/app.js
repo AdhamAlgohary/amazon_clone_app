@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 //Import from other files
 const routes = require("./routes/routes.js");
-const constants = require("./constants.js");
+const constants = require("./constants/constants.js");
 //Init
 const app = express();
 const PORT = 8000;
@@ -15,7 +15,7 @@ app.use(routes.getUserDataRoutes);
 //Connetcing to database
 
 mongoose
-  .connect(constants.databaseUrl)
+  .connect(constants.DATABASE_URL)
   .then(() => {
     console.log("Connection to database is suucessfully");
   })

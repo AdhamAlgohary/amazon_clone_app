@@ -10,6 +10,5 @@ const tokenIsValidPath = "/tokenIsValid";
 
 authRouter.post(signUpPath, authController.signUpNewUser);
 authRouter.post(signInPath, authController.signIn);
-// authRouter.post(tokenIsValidPath, authController.tokenIsValid);
 
 module.exports = authRouter;

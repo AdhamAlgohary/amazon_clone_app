@@ -1,6 +1,6 @@
 import 'package:amazon_clone_app/core/widgets/custom_bottom_bar.dart';
 import 'package:amazon_clone_app/features/account/presentation/pages/account_page.dart';
-import 'package:amazon_clone_app/features/auth/presentaion/pages/auth_page.dart';
+import 'package:amazon_clone_app/features/auth/presentation/pages/auth_page.dart';
 import 'package:amazon_clone_app/config/navigation/routes.dart';
 import 'package:amazon_clone_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:amazon_clone_app/features/splash/presentation/pages/splash_page.dart';

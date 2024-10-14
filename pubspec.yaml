@@ -48,6 +48,7 @@ dependencies:
   google_fonts: ^6.2.0
   get_it: ^7.7.0
   badges: ^3.1.2
+  single_import_generator: ^1.0.0
     
 
 dev_dependencies:

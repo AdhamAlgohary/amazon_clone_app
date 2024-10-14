@@ -1,14 +1,8 @@
-import 'package:amazon_clone_app/core/error/exception.dart';
-import 'package:amazon_clone_app/core/error/failure.dart';
-import 'package:amazon_clone_app/core/network/network_info.dart';
-import 'package:amazon_clone_app/features/auth/data/datasources/auth_local_data_sorce/auth_local_data_source.dart';
-import 'package:amazon_clone_app/features/auth/data/datasources/auth_remote_data_source/auth_remote_data_source.dart';
-import 'package:amazon_clone_app/features/auth/data/models/user.dart';
-import 'package:amazon_clone_app/features/auth/domian/entities/user_entity.dart';
+import 'package:amazon_clone_app/core/core_import_packages.dart';
+import 'package:amazon_clone_app/features/auth/data/data_import_packages.dart';
+import 'package:amazon_clone_app/features/auth/domain/domain_import_packages.dart';
 
 import 'package:dartz/dartz.dart';
-import '../../../../core/constants/app_constant_text.dart';
-import '../../domian/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final NetworkInfo networkInfo;

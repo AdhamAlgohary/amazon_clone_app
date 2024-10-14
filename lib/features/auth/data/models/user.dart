@@ -1,4 +1,4 @@
-import "package:amazon_clone_app/features/auth/domian/entities/user_entity.dart";
+import "package:amazon_clone_app/features/auth/domain/domain_import_packages.dart";
 import "package:json_annotation/json_annotation.dart";
 
 part "user.g.dart";

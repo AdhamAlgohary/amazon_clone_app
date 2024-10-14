@@ -1,8 +1,5 @@
-import 'package:amazon_clone_app/core/constants/api_path.dart';
-import 'package:amazon_clone_app/features/auth/data/datasources/auth_remote_data_source/auth_remote_data_source.dart';
-import 'package:amazon_clone_app/features/auth/data/models/user.dart';
-import '../../../../../core/constants/app_constant_text.dart';
-import '../../../../../core/utils/helpers/api_helper.dart';
+import 'package:amazon_clone_app/core/core_import_packages.dart';
+import 'package:amazon_clone_app/features/auth/data/data_import_packages.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -20,7 +17,7 @@ class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
 
     return ApiHelper.handleResponse<String>(
         response: response,
-        onSuccess: /*<String>*/(decodedJson) => decodedJson["userToken"]);
+        onSuccess:(decodedJson) => decodedJson["userToken"]);
   }
 
   @override
@@ -31,7 +28,7 @@ class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
 
     return ApiHelper.handleResponse<String>(
         response: response,
-        onSuccess: /*<String>*/(decodedJson) => decodedJson["responseFromApi"]);
+        onSuccess: (decodedJson) => decodedJson["responseFromApi"]);
   }
 
   @override
@@ -44,6 +41,6 @@ class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
         
     return ApiHelper.handleResponse<User>(
         response: response,
-        onSuccess: /*<UserEntity>*/(decodedJson) => User.fromJson(decodedJson));
+        onSuccess: (decodedJson) => User.fromJson(decodedJson));
   }
 }
