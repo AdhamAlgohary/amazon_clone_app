@@ -1,4 +1,3 @@
-
 import 'package:amazon_clone_app/config/theme/app_pallet_colors/light_pallet_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +8,7 @@ class AppLightTheme {
       colorScheme: LightPalletColor.lightColorSchema,
       inputDecorationTheme: const InputDecorationTheme(
         filled: true,
+        fillColor: LightPalletColor.lightSurface,
         enabledBorder: OutlineInputBorder(),
         focusedBorder: OutlineInputBorder(
             borderSide:
@@ -21,22 +21,20 @@ class AppLightTheme {
               textStyle: GoogleFonts.rubik(
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
-                    color: LightPalletColor.lightOnSurface)),
+                      color: LightPalletColor.lightOnSurface)),
               minimumSize: const Size(450, 50),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)))),
-
       checkboxTheme: const CheckboxThemeData(
           side: BorderSide(color: LightPalletColor.lightPrimary),
           checkColor: WidgetStatePropertyAll(LightPalletColor.lightPrimary),
-          fillColor:
-              WidgetStatePropertyAll(LightPalletColor.lightSurfaceVariant)),
-
+          fillColor: WidgetStatePropertyAll(LightPalletColor.lightSurface)),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor:LightPalletColor.lightOutline,
-        unselectedItemColor: LightPalletColor.lightOnSurface,
-        backgroundColor: LightPalletColor.lightOnSecondary
-      )      
-
-  );
+          selectedItemColor: LightPalletColor.lightOutline,
+          unselectedItemColor: LightPalletColor.lightOnSurface,
+          backgroundColor: LightPalletColor.lightOnSecondary),
+      iconButtonTheme: const IconButtonThemeData(
+          style: ButtonStyle(
+              iconColor:
+                  WidgetStatePropertyAll(LightPalletColor.lightOnPrimary))));
 }

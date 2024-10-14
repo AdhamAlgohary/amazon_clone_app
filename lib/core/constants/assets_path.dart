@@ -4,7 +4,7 @@ class AssetsPath {
 }
 
 class ImageAssets{
-
+static const appBarLogo = '${AssetsPath._baseImagePath}appBarLogo.png';
 }
 
 class SvgAssets{

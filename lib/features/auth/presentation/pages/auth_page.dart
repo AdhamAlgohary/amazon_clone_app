@@ -4,6 +4,8 @@ import 'package:amazon_clone_app/injection_container.dart' as ic;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/theme/app_pallet_colors/light_pallet_colors.dart';
+
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
   @override
@@ -40,12 +42,16 @@ class _AuthPageState extends State<AuthPage> {
     return BlocProvider<HoldChangableDataBloc>(
       create: (_) => ic.gi<HoldChangableDataBloc>(),
 
-      child: AuthPageContent(
-        nameController: nameController,
-        emailController: emailController,
-        passwordController: passwordController,
-        signUpFormKey: signUpFormKey,
-        signInFormKey: signInFormKey,
+      child: Scaffold(
+        backgroundColor: LightPalletColor.lightSurfaceVariant,
+        
+        body: AuthPageContent(
+          nameController: nameController,
+          emailController: emailController,
+          passwordController: passwordController,
+          signUpFormKey: signUpFormKey,
+          signInFormKey: signInFormKey,
+        ),
       ),
     );
   }

@@ -39,7 +39,7 @@ class CustomContainer extends StatelessWidget {
               width: 0.01 * screenWidth,
               color: LightPalletColor.lightDisableOrHintItem),
           color: state.selectedSignInOrSignUp == selectedSignUpOrSignInForm
-              ? LightPalletColor.lightSurfaceVariant
+              ? LightPalletColor.lightSurface
               : LightPalletColor.lightDisableOrHintItem,
         ),
         

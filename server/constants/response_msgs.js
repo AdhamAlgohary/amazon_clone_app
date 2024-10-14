@@ -5,4 +5,13 @@ const CREAT_ACCOUNT_SUCCESSFULLY_MSG="Account created successfully";
 const INVALID_PASSWORD_MSG="Invalid password";
 const INVALID_EMAIL_MSG="Invalid email";
 const INVALID_TOKEN_MSG="Token verification failed, authorization denied.";
-module.exports;
+
+module.exports={
+    USER_IS_EXISTING_MSG,
+    VALID_EMAIL_MSG,
+    VALID_PASSWORD_MSG,
+    CREAT_ACCOUNT_SUCCESSFULLY_MSG,
+    INVALID_PASSWORD_MSG,
+    INVALID_EMAIL_MSG,
+    INVALID_TOKEN_MSG,
+};

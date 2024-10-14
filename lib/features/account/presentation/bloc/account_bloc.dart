@@ -1,8 +1,7 @@
+import 'package:amazon_clone_app/features/account/presentation/account_presentation_import_packages.dart';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
-part 'account_event.dart';
-part 'account_state.dart';
+
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
   AccountBloc() : super(AccountInitial()) {

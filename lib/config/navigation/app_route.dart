@@ -12,23 +12,22 @@ class AppRoute {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
-        return _getScreen(const Scaffold(
-          body: SplashPage(),
-        ));
+        return _getScreen(
+           const SplashPage(),
+        );
       case Routes.bottomBar:  
-        return _getScreen(const Scaffold(
-          body: CustomBottomBar(),
-        ));
+        return _getScreen(const CustomBottomBar(),
+        );
       case Routes.authPage:
-        return _getScreen(const Scaffold(body: AuthPage()));
+        return _getScreen(const  AuthPage());
       case Routes.homePage:
-        return _getScreen(const Scaffold(
-          body: HomePage(),
-        ));
+        return _getScreen( 
+          const HomePage(),
+        );
       case Routes.accountPage:
-        return _getScreen(const Scaffold(body: AccountPage(),));  
+        return _getScreen(const AccountPage(),);  
       case Routes.cartPage:
-        return _getScreen(const Scaffold(body:  CartPage(),));  
+        return _getScreen(const CartPage(),);  
 
       default:
         throw const FormatException("Route not found");

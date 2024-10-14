@@ -1,4 +1,5 @@
-part of 'account_bloc.dart';
+
+import 'package:equatable/equatable.dart';
 
 abstract class AccountState extends Equatable {
   const AccountState();  

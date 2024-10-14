@@ -1,5 +1,4 @@
 import 'package:amazon_clone_app/features/auth/data/datasources/auth_local_data_sorce/auth_local_data_source.dart';
-import '../../../../../core/constants/app_constant_text.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,6 +49,6 @@ class AuthLocalDataSourceWithSharedPreferences implements AuthLocalDataSource {
   void deleteValue({required String key}) async {
     await _initSharedPrefernces();
 
-    _sharedPreferences.remove(AppConstantText.keyForCachedUserToken);
+    _sharedPreferences.remove(key);
   }
 }
