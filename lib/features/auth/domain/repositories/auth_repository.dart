@@ -6,5 +6,5 @@ abstract class AuthRepository {
   Future<Either<Failure, String>> signUpNewUser(
       {required UserEntity userEntity});
   Future<Either<Failure, Unit>> signIn({required UserEntity userEntity});
-  Future<Either<Failure, UserEntity>> getUserData();
+  Future<Either<Failure, UserEntity>> getUserData({required String userToken});
 }

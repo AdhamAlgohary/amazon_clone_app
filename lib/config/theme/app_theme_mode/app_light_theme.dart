@@ -24,6 +24,8 @@ class AppLightTheme {
                       color: LightPalletColor.lightOnSurface)),
               minimumSize: const Size(450, 50),
               shape: RoundedRectangleBorder(
+                  side:
+                      const BorderSide(color: LightPalletColor.lightOnSurface),
                   borderRadius: BorderRadius.circular(10)))),
       checkboxTheme: const CheckboxThemeData(
           side: BorderSide(color: LightPalletColor.lightPrimary),
@@ -36,5 +38,10 @@ class AppLightTheme {
       iconButtonTheme: const IconButtonThemeData(
           style: ButtonStyle(
               iconColor:
-                  WidgetStatePropertyAll(LightPalletColor.lightOnPrimary))));
+                  WidgetStatePropertyAll(LightPalletColor.lightOnPrimary))),
+      cardTheme: CardTheme(
+        
+        color: LightPalletColor.lightSurface,
+        shape: Border.all(color: LightPalletColor.lightOnSurface),
+      ));
 }

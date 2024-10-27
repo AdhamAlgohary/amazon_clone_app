@@ -7,9 +7,9 @@ import 'package:dartz/dartz.dart';
 class AuthRepositoryImpl implements AuthRepository {
   final NetworkInfo networkInfo;
   final AuthRemoteDataSource authRemoteDataSource;
-  final AuthLocalDataSource authLocalDataSource;
+  AuthLocalDataSource authLocalDataSource;
 
-  const AuthRepositoryImpl(
+  AuthRepositoryImpl(
       {required this.networkInfo,
       required this.authRemoteDataSource,
       required this.authLocalDataSource});
@@ -18,12 +18,11 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, Unit>> signIn(
           {required UserEntity userEntity}) async =>
       _performActionWithNetworkCheck<Unit>(() async {
+        authLocalDataSource = AuthLocalDataSourceImplWithHive.init();
         final User userModel = _mapUserEntityToUserModel(userEntity);
-        final userToken = await authRemoteDataSource.signIn(userModel);
+        final userData = await authRemoteDataSource.signIn(userModel);
+        cacheUserData(userData: userData);
 
-        await authLocalDataSource.setValue<String>(
-            key: AppConstantText.keyForCachedUserToken, value: userToken);
-        
         return unit;
       });
 
@@ -38,9 +37,9 @@ class AuthRepositoryImpl implements AuthRepository {
       });
 
   @override
-  Future<Either<Failure, UserEntity>> getUserData() async =>
+  Future<Either<Failure, UserEntity>> getUserData({required String userToken}) async =>
       _performActionWithNetworkCheck<User>(() async {
-        final userData = await authRemoteDataSource.getUserData();
+        final userData = await authRemoteDataSource.getUserData(userToken: userToken);
 
         return userData;
       });
@@ -65,4 +64,10 @@ class AuthRepositoryImpl implements AuthRepository {
       name: userEntity.name,
       email: userEntity.email,
       password: userEntity.password);
+
+  void cacheUserData({required User userData}) async =>
+      await authLocalDataSource.setValue<User>(
+        key: AppConstantText.hiveKeyForCachedUserData,
+        value: userData,
+      );
 }

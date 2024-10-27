@@ -24,3 +24,4 @@ export 'utils/ui/snackbar_message.dart';
 export 'widgets/custom_bottom_bar.dart';
 export 'widgets/custom_txt_form_field.dart';
 export 'widgets/loading_widget.dart';
+export 'widgets/custom_bold_txt.dart';

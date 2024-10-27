@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user.js");
 const constants = require("../constants/constants.js");
-const responseMsgs=require("../constants/response_msgs.js")
+const responseMsgs = require("../constants/response_msgs.js");
 
 const PASSWORD_KEY = "passwordKey";
 
@@ -24,7 +24,7 @@ const signUpNewUser = async (req, res) => {
     if (userIsExisting)
       return sendClientExceptionResponse(
         res,
-        responseMsgs.USER_IS_EXISITING_MSG
+        responseMsgs.USER_IS_EXISTING_MSG
       );
     else if (!userIsValid)
       return sendClientExceptionResponse(res, responseMsgs.VALID_EMAIL_MSG);
@@ -39,7 +39,9 @@ const signUpNewUser = async (req, res) => {
       });
 
       user = await user.save();
-      res.status(200).json({ responseFromApi: responseMsgs.CREAT_ACCOUNT_SUCCESSFULLY_MSG });
+      res
+        .status(200)
+        .json({ responseFromApi: responseMsgs.CREAT_ACCOUNT_SUCCESSFULLY_MSG });
     }
   } catch (error) {
     return sendServerExceptionResponse(res, error);
@@ -47,17 +49,24 @@ const signUpNewUser = async (req, res) => {
 };
 ////Sign In Route////
 const signIn = async (req, res) => {
+  const { email, password } = req.body;
+  const userIsExisting = await User.findOne({ email });
   try {
     if (userIsExisting) {
       const isMatch = await bcryptjs.compare(password, userIsExisting.password);
 
       if (isMatch) {
-        const userToken = jwt.sign({ id: userIsExisting._id }, PASSWORD_KEY);
-
-        res.status(200).json({ userToken });
-      } else return sendClientExceptionResponse(res, responseMsgs.INVALID_PASSWORD_MSG);
-    } else return sendClientExceptionResponse(res, responseMsgs.INVALID_EMAIL_MSG);
+        const token = jwt.sign({ id: userIsExisting._id }, PASSWORD_KEY);
+        res.status(200).json({ token ,...userIsExisting._doc});
+      } else
+        return sendClientExceptionResponse(
+          res,
+          responseMsgs.INVALID_PASSWORD_MSG
+        );
+    } else
+      return sendClientExceptionResponse(res, responseMsgs.INVALID_EMAIL_MSG);
   } catch (error) {
+    console.log(error.message);
     return sendServerExceptionResponse(res, error);
   }
 };

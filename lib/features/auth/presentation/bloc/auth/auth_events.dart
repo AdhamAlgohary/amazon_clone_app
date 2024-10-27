@@ -21,7 +21,8 @@ class SignInEvent extends AuthEvents {
 }
 
 class GetUserDataEvent extends AuthEvents{
-  const GetUserDataEvent();
+ final String userToken;
+  const GetUserDataEvent({required this.userToken});
   @override
-  List<Object?> get props =>[];
+  List<Object?> get props =>[userToken];
 }

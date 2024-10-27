@@ -26,6 +26,7 @@ class _AuthPageState extends State<AuthPage> {
     passwordController = TextEditingController();
     signUpFormKey = GlobalKey<FormState>();
     signInFormKey = GlobalKey<FormState>();
+
     super.initState();
   }
 

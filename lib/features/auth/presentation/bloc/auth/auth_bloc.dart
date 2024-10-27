@@ -9,7 +9,6 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   final SignUpNewUserUseCase signUpNewUserUseCase;
   final SignInUseCase signInUseCase;
   final GetUserDataUseCase getUserDataUseCase;
- Object ? userToken;
 
   AuthBloc(
       {required this.signUpNewUserUseCase,
@@ -40,7 +39,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
 
         case GetUserDataEvent():
           {
-            await getUserDataUseCase();
+            await getUserDataUseCase(userToken:event.userToken );
 
             break;
           }

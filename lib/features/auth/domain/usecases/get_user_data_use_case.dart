@@ -8,5 +8,5 @@ class GetUserDataUseCase {
 
   const GetUserDataUseCase(this._repository);
 
-  Future<Either<Failure, UserEntity>> call()async => await _repository.getUserData();
+  Future<Either<Failure, UserEntity>> call({required String userToken})async => await _repository.getUserData(userToken: userToken);
 }

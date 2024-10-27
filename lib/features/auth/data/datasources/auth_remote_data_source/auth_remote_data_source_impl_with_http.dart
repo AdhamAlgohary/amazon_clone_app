@@ -1,7 +1,6 @@
 import 'package:amazon_clone_app/core/core_import_packages.dart';
 import 'package:amazon_clone_app/features/auth/data/data_import_packages.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
@@ -10,19 +9,16 @@ class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
   const AuthRemoteDataSourceImplWithHttp({required this.client});
 
   @override
-
-  Future<String> signIn(User user) async {
+  Future<User> signIn(User user) async {
     final http.Response response = await ApiHelper.postRequest(
         url: ApiPath.signInEndPoint, body: user.toJson());
 
-    return ApiHelper.handleResponse<String>(
-        response: response,
-        onSuccess:(decodedJson) => decodedJson["userToken"]);
+    return ApiHelper.handleResponse<User>(
+        response: response, onSuccess: (decodedJson) => decodedJson);
   }
 
   @override
   Future<String> signUpNewUser(User user) async {
-
     final http.Response response = await ApiHelper.postRequest(
         url: ApiPath.signUpEndPoint, body: user.toJson());
 
@@ -32,15 +28,11 @@ class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
   }
 
   @override
-  Future<User> getUserData() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String userToken =
-        prefs.get(AppConstantText.keyForCachedUserToken).toString();
+  Future<User> getUserData({required String userToken}) async {
     final http.Response response = await ApiHelper.getRequest(
         url: ApiPath.getUserDataEndPoint, userToken: userToken);
-        
+
     return ApiHelper.handleResponse<User>(
-        response: response,
-        onSuccess: (decodedJson) => User.fromJson(decodedJson));
+        response: response, onSuccess: (decodedJson) => decodedJson);
   }
 }

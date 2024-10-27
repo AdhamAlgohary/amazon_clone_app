@@ -1,5 +1,7 @@
 import 'package:amazon_clone_app/core/core_import_packages.dart';
-import 'package:amazon_clone_app/features/account/presentation/widgets/custom_app_bar.dart';
+import 'package:amazon_clone_app/features/account/presentation/account_presentation_import_packages.dart';
+import 'package:amazon_clone_app/features/account/presentation/components/orders.dart';
+
 import 'package:flutter/material.dart';
 
 class AccountPage extends StatelessWidget {
@@ -9,12 +11,23 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = ScreenSize.screenHeight(context: context);
 
-    return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(0.1 * screenHeight),
-          child: const CustomAppBar()), 
-      body: const Center(
-        child: Text('Account page'),
+    return OrientationBuilder(
+      builder: (_, orientation) => Scaffold(
+        appBar: PreferredSize(
+            preferredSize: orientation == Orientation.portrait
+                ? Size.fromHeight(0.1 * screenHeight)
+                : Size.fromHeight(0.25 * screenHeight),
+            child: CustomAccountPageAppBar(
+              orientation: orientation,
+            )),
+        body: ListView(children: [
+          AccountPageBtns(
+            orientation: orientation,
+          ),
+          Orders(
+            orientation: orientation,
+          ),
+        ]),
       ),
     );
   }

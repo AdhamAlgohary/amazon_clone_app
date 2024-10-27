@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amazon_clone_app/features/auth/data/data_import_packages.dart';
 import 'package:http/http.dart' as http;
 
 import '../../core_import_packages.dart';
@@ -38,14 +39,15 @@ class ApiHelper {
 
   static T handleResponse<T>({
     required http.Response response,
-    required T Function(Map<String, dynamic>) onSuccess,
+    required T Function(dynamic) onSuccess,
   }) {
     final responseIsSuccess = response.statusCode == 200;
 
     if (responseIsSuccess) {
 
       Map<String, dynamic> decodedJson = json.decode(response.body);
-      return onSuccess(decodedJson);
+      final userData = User.fromJson(decodedJson);
+      return onSuccess(userData);
       
     } else if (response.statusCode == 400) {
       FailuresMsgs.clientFailureMsg =
