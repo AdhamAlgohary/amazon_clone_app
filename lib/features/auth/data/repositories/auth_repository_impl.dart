@@ -17,48 +17,41 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, Unit>> signIn(
           {required UserEntity userEntity}) async =>
-      _performActionWithNetworkCheck<Unit>(() async {
-        authLocalDataSource = AuthLocalDataSourceImplWithHive.init();
-        final User userModel = _mapUserEntityToUserModel(userEntity);
-        final userData = await authRemoteDataSource.signIn(userModel);
-        cacheUserData(userData: userData);
+      Helper.performActionWithNetworkCheck<Unit>(
+          networkInfo: networkInfo,
+          action: () async {
+            authLocalDataSource = AuthLocalDataSourceImplWithHive.init();
+            final User userModel = _mapUserEntityToUserModel(userEntity);
+            final userData = await authRemoteDataSource.signIn(userModel);
+            cacheUserData(userData: userData);
 
-        return unit;
-      });
+            return unit;
+          });
 
   @override
   Future<Either<Failure, String>> signUpNewUser(
           {required UserEntity userEntity}) async =>
-      _performActionWithNetworkCheck<String>(() async {
-        final User userModel = _mapUserEntityToUserModel(userEntity);
-        final msgFromApi = await authRemoteDataSource.signUpNewUser(userModel);
+      Helper.performActionWithNetworkCheck<String>(
+          networkInfo: networkInfo,
+          action: () async {
+            final User userModel = _mapUserEntityToUserModel(userEntity);
+            final msgFromApi =
+                await authRemoteDataSource.signUpNewUser(userModel);
 
-        return msgFromApi;
-      });
+            return msgFromApi;
+          });
 
   @override
-  Future<Either<Failure, UserEntity>> getUserData({required String userToken}) async =>
-      _performActionWithNetworkCheck<User>(() async {
-        final userData = await authRemoteDataSource.getUserData(userToken: userToken);
+  Future<Either<Failure, UserEntity>> getUserData(
+          {required String userToken}) async =>
+      Helper.performActionWithNetworkCheck<User>(
+          networkInfo: networkInfo,
+          action: () async {
+            final userData =
+                await authRemoteDataSource.getUserData(userToken: userToken);
 
-        return userData;
-      });
-
-  Future<Either<Failure, T>> _performActionWithNetworkCheck<T>(
-      Future<T> Function() action) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final result = await action();
-        return Right(result);
-      } on ClientException {
-        return const Left(ClientFailure());
-      } on ServerException {
-        return const Left(ServerFailure());
-      }
-    } else {
-      return const Left(OffLineFailure());
-    }
-  }
+            return userData;
+          });
 
   User _mapUserEntityToUserModel(UserEntity userEntity) => User(
       name: userEntity.name,

@@ -24,7 +24,7 @@ class CustomContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = ScreenSize.screenWidth(context: context);
+    final double screenWidth = Helper.screenWidth(context: context);
 
     return Container(
         height: state.selectedSignInOrSignUp == selectedSignUpOrSignInForm

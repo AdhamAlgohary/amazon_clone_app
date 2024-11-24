@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
   address: {
     required: false,
     type: String,
-    default: "",
+    default: "Plastine coutry, Gaza town, Elsultan area",
   },
   type: {
     required: false,

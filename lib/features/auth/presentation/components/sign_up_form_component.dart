@@ -35,8 +35,8 @@ class SignUpFormComponent extends StatelessWidget {
   Widget _buildBody({
     required BuildContext context,
   }) {
-    final screenHeight = ScreenSize.screenHeight(context: context);
-    final screenWidth =ScreenSize.screenWidth(context: context);
+    final screenHeight = Helper.screenHeight(context: context);
+    final screenWidth =Helper.screenWidth(context: context);
 
     return CustomContainer(
       selectedSignUpOrSignInForm: selectedSignUpOrSignInForm,
@@ -45,7 +45,7 @@ class SignUpFormComponent extends StatelessWidget {
           ? 0.05 * screenWidth
           : 0.2 * screenWidth,
       selectedSignUpOrSignInFormHeight: orientation == Orientation.portrait
-          ? 0.5 * screenHeight
+          ? 0.6 * screenHeight
           : 1 * screenHeight,
       notSelectedSignUpOrSignInFormHeight: orientation == Orientation.portrait
           ? 0.08 * screenHeight
@@ -53,52 +53,53 @@ class SignUpFormComponent extends StatelessWidget {
           
       child: Form(
         key: formKey,
-      
-        child: Column(
-          
-          children: [
-            CustomRadioTile(
-              text: AppConstantText.authPageCreateAccountTxt,
-              value: AppConstantText.authPageCreateAccountTxt,
-              state: state,
-            ),
-      
-            state.selectedSignInOrSignUp == AppConstantText.authPageCreateAccountTxt
-                ? Column(
-                    children: [
-                      CustomTxtFormField(
-                          textEditingController: nameController,
-                          isObscure: false,
-                          hintText: AppConstantText.authPageNameHintTxt),
-      
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 0.01 * screenHeight),
-                        child: CustomTxtFormField(
-                            textEditingController: emailController,
+        child: SingleChildScrollView(
+          child: Column(
+            
+            children: [
+              CustomRadioTile(
+                text: AppConstantText.authPageCreateAccountTxt,
+                value: AppConstantText.authPageCreateAccountTxt,
+                state: state,
+              ),
+        
+              state.selectedSignInOrSignUp == AppConstantText.authPageCreateAccountTxt
+                  ? Column(
+                      children: [
+                        CustomTxtFormField(
+                            textEditingController: nameController,
                             isObscure: false,
-                            hintText: AppConstantText.authPageEmailHintTxt),
-                      ),
-      
-                      CustomTxtFormField(
-                          textEditingController: passwordController,
-                          isObscure: state.selectedShowPasswordOrNot == false
-                              ? true
-                              : false,
-                          hintText: AppConstantText.authPagePasswordHintTxt),
-      
-                      CustomCheckBoxTile(
-                        state: state,
-                      ),
-      
-                      ElevatedButton(
-                          onPressed: () =>
-                              _performActionAfterValidateForm(context),
-                          child: const Text(AppConstantText.authPageCreateAccountTxt))
-                    ],
-                  )
-                : const SizedBox()
-          ],
+                            hintText: AppConstantText.authPageNameHintTxt),
+        
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 0.01 * screenHeight),
+                          child: CustomTxtFormField(
+                              textEditingController: emailController,
+                              isObscure: false,
+                              hintText: AppConstantText.authPageEmailHintTxt),
+                        ),
+        
+                        CustomTxtFormField(
+                            textEditingController: passwordController,
+                            isObscure: state.selectedShowPasswordOrNot == false
+                                ? true
+                                : false,
+                            hintText: AppConstantText.authPagePasswordHintTxt),
+        
+                        CustomCheckBoxTile(
+                          state: state,
+                        ),
+        
+                        ElevatedButton(
+                            onPressed: () =>
+                                _performActionAfterValidateForm(context),
+                            child: const Text(AppConstantText.authPageCreateAccountTxt))
+                      ],
+                    )
+                  : const SizedBox()
+            ],
+          ),
         ),
       ),
     );

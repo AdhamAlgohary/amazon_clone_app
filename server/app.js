@@ -11,6 +11,7 @@ const PORT = 8000;
 app.use(express.json());
 app.use(routes.authRoutes);
 app.use(routes.getUserDataRoutes);
+app.use(routes.productRoutes);
 
 //Connetcing to database
 
@@ -22,6 +23,6 @@ mongoose
   .catch((e) => console.log(` error : ${e.message}`));
 
 //Creating An API
-app.listen(PORT,"192.168.1.23", () => {
+app.listen(PORT, "192.168.1.20", () => {
   console.log(`Server running on port ${PORT}`);
 });

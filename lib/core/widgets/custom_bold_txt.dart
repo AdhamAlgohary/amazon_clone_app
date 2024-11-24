@@ -11,7 +11,7 @@ class CustomBoldTxt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width =ScreenSize.screenWidth(context: context);
+    final width =Helper.screenWidth(context: context);
     return  Text(text,style: GoogleFonts.rubik(
                   textStyle:  TextStyle(
                       fontWeight: FontWeight.bold,

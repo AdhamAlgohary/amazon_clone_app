@@ -29,7 +29,7 @@ class AuthPageContent extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context, AuthStates state) {
-    final screenHeight = ScreenSize.screenHeight(context: context);
+    final screenHeight = Helper.screenHeight(context: context);
 
     if (state is LoadingState) {
       return const LoadingWidget();
@@ -78,7 +78,7 @@ class AuthPageContent extends StatelessWidget {
           break;
         }
       case SuccessfulLoginState _:
-        context.replaceScreen(Routes.bottomBar);
+        context.replaceScreen(Routes.userPage);
 
       case FailedState _:
         SnackbarMsg.showSnackBar(

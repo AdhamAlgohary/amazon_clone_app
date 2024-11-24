@@ -1,7 +1,6 @@
+import 'package:amazon_clone_app/core/core_import_packages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:amazon_clone_app/core/utils/helpers/screen_size.dart';
 
 class AppTextStyle {
   static TextStyle largeLabelTxtStyle(
@@ -13,7 +12,7 @@ class AppTextStyle {
         textStyle: TextStyle(
             fontWeight: fontWeight ?? FontWeight.bold,
             fontSize:
-                fontSize ?? 0.08 * ScreenSize.screenWidth(context: context),
+                fontSize ?? 0.08 * Helper.screenWidth(context: context),
             color: color));
   }
 
@@ -26,7 +25,7 @@ class AppTextStyle {
         textStyle: TextStyle(
             fontWeight: fontWeight ?? FontWeight.bold,
             fontSize:
-                fontSize ?? 0.06 * ScreenSize.screenWidth(context: context),
+                fontSize ?? 0.06 * Helper.screenWidth(context: context),
             color: color));
   }
 
@@ -39,7 +38,7 @@ class AppTextStyle {
         textStyle: TextStyle(
             fontWeight: fontWeight ?? FontWeight.normal,
             fontSize:
-                fontSize ?? 0.06 * ScreenSize.screenWidth(context: context),
+                fontSize ?? 0.06 * Helper.screenWidth(context: context),
             color: color));
   }
 
@@ -52,7 +51,20 @@ class AppTextStyle {
         textStyle: TextStyle(
             fontWeight: fontWeight ?? FontWeight.normal,
             fontSize:
-                fontSize ?? 0.04 * ScreenSize.screenWidth(context: context),
+                fontSize ?? 0.04 * Helper.screenWidth(context: context),
+            color: color));
+  }
+
+  static TextStyle hintTxtStyle(
+      {required BuildContext context,
+      double? fontSize,
+      Color? color,
+      FontWeight? fontWeight}) {
+    return GoogleFonts.rubik(
+        textStyle: TextStyle(
+            fontWeight: fontWeight ?? FontWeight.bold,
+            fontSize:
+                fontSize ?? 0.045 * Helper.screenWidth(context: context),
             color: color));
   }
 }

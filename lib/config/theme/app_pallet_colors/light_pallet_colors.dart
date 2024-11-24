@@ -24,7 +24,8 @@ abstract class LightPalletColor {
   static const gold = Color(0xffFF9900);
   static const Color lighterGreyy = Color(0xffF4F3FD);
   static const Color lightGreen = Color.fromARGB(255, 29, 201, 192);
-
+  
+  static const Color transparent = Colors.transparent;
   static const appBarGradient = LinearGradient(
     colors: [
       Color.fromARGB(255, 29, 201, 192),
@@ -32,7 +33,15 @@ abstract class LightPalletColor {
     ],
     stops: [0.5, 1],
   );
+  
+static const homePageAddressBoxGradient = LinearGradient(
+    colors: [
+      Color.fromARGB(255, 114, 226, 221),
+      Color.fromARGB(255, 162, 236, 233),
+    ],
+        stops: [0.5, 1],
 
+  ); 
   static const lightColorSchema = ColorScheme.light(
       brightness: Brightness.light,
       primary: lightPrimary,

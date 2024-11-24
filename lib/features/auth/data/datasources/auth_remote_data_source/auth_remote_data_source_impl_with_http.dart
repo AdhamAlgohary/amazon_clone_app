@@ -14,14 +14,18 @@ class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
         url: ApiPath.signInEndPoint, body: user.toJson());
 
     return ApiHelper.handleResponse<User>(
-        response: response, onSuccess: (decodedJson) => decodedJson);
+        response: response,
+        onSuccess: (decodedJson) {
+          final userData = User.fromJson(decodedJson);
+          return userData;
+        });
   }
 
   @override
   Future<String> signUpNewUser(User user) async {
     final http.Response response = await ApiHelper.postRequest(
         url: ApiPath.signUpEndPoint, body: user.toJson());
-
+    print(response.body);
     return ApiHelper.handleResponse<String>(
         response: response,
         onSuccess: (decodedJson) => decodedJson["responseFromApi"]);
@@ -33,6 +37,9 @@ class AuthRemoteDataSourceImplWithHttp implements AuthRemoteDataSource {
         url: ApiPath.getUserDataEndPoint, userToken: userToken);
 
     return ApiHelper.handleResponse<User>(
-        response: response, onSuccess: (decodedJson) => decodedJson);
+        response: response, onSuccess: (decodedJson) {
+          final userData = User.fromJson(decodedJson);
+          return userData;
+        });
   }
 }

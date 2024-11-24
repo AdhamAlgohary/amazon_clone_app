@@ -3,48 +3,51 @@ import 'package:amazon_clone_app/core/core_import_packages.dart';
 import 'package:amazon_clone_app/core/widgets/bottom_bar_item_custom_container.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomBottomBar extends StatelessWidget {
-  const CustomBottomBar({super.key});
+  final BottomBarState state;
+  final void Function(int) bottomBarOnTapFunc;
+  final List<Widget> pages; 
+  final Widget bottomBarSecondDisableIcon;
+  final Widget bottomBarSecondActiveIcon;
+  final Widget bottomBarThirdDisableIcon;
+  final Widget bottomBarThirdActiveIcon;
+  const CustomBottomBar({
+    super.key,
+    required this.state,
+    required this.pages,
+    required this.bottomBarOnTapFunc,
+    required this.bottomBarSecondDisableIcon,
+    required this.bottomBarSecondActiveIcon,
+    required this.bottomBarThirdDisableIcon,
+    required this.bottomBarThirdActiveIcon,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BottomBarCubitBloc, BottomBarCubitState>(
-      builder: (_, state) => Scaffold(
-        backgroundColor: LightPalletColor.lightSurfaceVariant,
-
-        body: state.pages[state.pageIndex],
-        
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: state.pageIndex,
-          onTap: (pageIndex) =>
-              bottomAppBarOnTapFunc(context: context, pageIndex: pageIndex),
-          items: const [
-            BottomNavigationBarItem(
+    return Scaffold(
+      backgroundColor: LightPalletColor.lightSurfaceVariant,
+      body: pages[state.pageIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: state.pageIndex,
+        onTap: bottomBarOnTapFunc,
+        items: [
+          const BottomNavigationBarItem(
+            label: '',
+            icon: Icon(Icons.home_outlined),
+            activeIcon: BottomBarItemCustomContainer(child: Icon(Icons.home)),
+          ),
+          BottomNavigationBarItem(
+            label: '',
+            icon: bottomBarSecondDisableIcon,
+            activeIcon: bottomBarSecondActiveIcon,
+          ),
+          BottomNavigationBarItem(
               label: '',
-              icon: Icon(Icons.home_outlined),
-              activeIcon: BottomBarItemCustomContainer(child: Icon(Icons.home)),
-            ),
-            BottomNavigationBarItem(
-              label: '',
-              icon:  Icon(Icons.person_outlined),
-              activeIcon: BottomBarItemCustomContainer(child: Icon(Icons.person)),
-            ),
-            BottomNavigationBarItem(
-              label: '',
-              icon: Badge(
-                child: Icon(Icons.shopping_cart_outlined),
-              ),
-              activeIcon: BottomBarItemCustomContainer(child: Icon(Icons.shopping_cart)),
-            ),
-          ],
-        ),
+              icon: bottomBarThirdDisableIcon,
+              activeIcon: bottomBarThirdActiveIcon),
+        ],
       ),
     );
   }
 }
-
-void bottomAppBarOnTapFunc(
-        {required BuildContext context, required int pageIndex}) =>
-    context.read<BottomBarCubitBloc>().bottomBarOnTapFunc(pageIndex: pageIndex);

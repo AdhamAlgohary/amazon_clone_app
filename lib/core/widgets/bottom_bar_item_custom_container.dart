@@ -10,7 +10,7 @@ class BottomBarItemCustomContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = ScreenSize.screenWidth(context: context);
+    final screenWidth = Helper.screenWidth(context: context);
 
     return Container(
       decoration:  BoxDecoration(

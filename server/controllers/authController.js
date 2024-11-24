@@ -66,7 +66,6 @@ const signIn = async (req, res) => {
     } else
       return sendClientExceptionResponse(res, responseMsgs.INVALID_EMAIL_MSG);
   } catch (error) {
-    console.log(error.message);
     return sendServerExceptionResponse(res, error);
   }
 };

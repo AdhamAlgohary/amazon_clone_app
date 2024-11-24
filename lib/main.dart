@@ -1,4 +1,5 @@
 import 'package:amazon_clone_app/core/core_import_packages.dart';
+import 'package:amazon_clone_app/features/admin/add_product/presentation/admin_add_product_page_presentation_import_packages.dart';
 import 'package:amazon_clone_app/features/auth/data/data_import_packages.dart';
 import 'package:amazon_clone_app/features/auth/presentation/presentation_import_packages.dart';
 import 'package:amazon_clone_app/injection_container.dart' as ic;
@@ -29,8 +30,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(create: (_) => ic.gi<AuthBloc>()),
-        BlocProvider<BottomBarCubitBloc>(
-            create: (_) => ic.gi<BottomBarCubitBloc>()),
+        BlocProvider<BottomBarCubit>(create: (_) => ic.gi<BottomBarCubit>()),
+        BlocProvider(
+          create: (context) => DropDownMenuCubit(),
+        ),
+        BlocProvider(
+          create: (context) => PickImagesCubit(),
+        )
       ],
       child: const AmazonCloneApp(),
     );

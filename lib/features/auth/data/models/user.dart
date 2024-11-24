@@ -1,4 +1,5 @@
 import "package:amazon_clone_app/features/auth/domain/domain_import_packages.dart";
+
 import "package:hive_flutter/hive_flutter.dart";
 import "package:json_annotation/json_annotation.dart";
 

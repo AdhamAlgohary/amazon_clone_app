@@ -16,7 +16,7 @@ Future<void> init() async {
   gi.registerLazySingleton<NetworkInfo>(() =>
       NetworkInfoImplWithConnectionChecker(internetConnectionChecker: gi()));
   gi.registerLazySingleton(() => InternetConnectionChecker());
-  gi.registerFactory(() => BottomBarCubitBloc());
+  gi.registerFactory(() => BottomBarCubit());
   //external
   gi.registerLazySingleton(() => http.Client());
 

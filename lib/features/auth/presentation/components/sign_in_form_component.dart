@@ -29,8 +29,8 @@ class SignInFormComponent extends StatelessWidget {
   }
 
   Widget _columnOfWidgets({required BuildContext context}) {
-    final screenHeight = ScreenSize.screenHeight(context: context);
-    final screenWidth = ScreenSize.screenWidth(context: context);
+    final screenHeight = Helper.screenHeight(context: context);
+    final screenWidth = Helper.screenWidth(context: context);
 
     return CustomContainer(
       selectedSignUpOrSignInForm: selectedSignUpOrSignInForm,
@@ -47,47 +47,49 @@ class SignInFormComponent extends StatelessWidget {
           
       child: Form(
         key: formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-
-            CustomRadioTile(
-                text: AppConstantText.authPageSignInBtnTxt,
-                value: AppConstantText.authPageSignInBtnTxt,
-                state: state),
-
-            state.selectedSignInOrSignUp == AppConstantText.authPageSignInBtnTxt
-                ? Column(
-                    children: [
-                      CustomTxtFormField(
-                          textEditingController: emailController,
-                          hintText: AppConstantText.authPageEmailHintTxt,
-                          isObscure: false
-                          ),
-
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 0.03 * screenHeight),
-                        child: CustomTxtFormField(
-                            textEditingController: passwordController,
-                            hintText: AppConstantText.authPageShowPasswordTxt,
-                            isObscure: state.selectedShowPasswordOrNot == false
-                              ? true
-                              : false
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+          
+              CustomRadioTile(
+                  text: AppConstantText.authPageSignInBtnTxt,
+                  value: AppConstantText.authPageSignInBtnTxt,
+                  state: state),
+          
+              state.selectedSignInOrSignUp == AppConstantText.authPageSignInBtnTxt
+                  ? Column(
+                      children: [
+                        CustomTxtFormField(
+                            textEditingController: emailController,
+                            hintText: AppConstantText.authPageEmailHintTxt,
+                            isObscure: false
                             ),
-                      ),
-
-                      CustomCheckBoxTile(state: state),
-                      
-                      ElevatedButton(
-                          onPressed: () =>
-                              _performActionAfterValidateForm(context),
-                          child:
-                              const Text(AppConstantText.authPageSignInBtnTxt))
-                    ],
-                  )
-                : const SizedBox()
-          ],
+          
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 0.03 * screenHeight),
+                          child: CustomTxtFormField(
+                              textEditingController: passwordController,
+                              hintText: AppConstantText.authPageShowPasswordTxt,
+                              isObscure: state.selectedShowPasswordOrNot == false
+                                ? true
+                                : false
+                              ),
+                        ),
+          
+                        CustomCheckBoxTile(state: state),
+                        
+                        ElevatedButton(
+                            onPressed: () =>
+                                _performActionAfterValidateForm(context),
+                            child:
+                                const Text(AppConstantText.authPageSignInBtnTxt))
+                      ],
+                    )
+                  : const SizedBox()
+            ],
+          ),
         ),
       ),
     );

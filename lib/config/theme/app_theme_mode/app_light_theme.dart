@@ -1,4 +1,4 @@
-import 'package:amazon_clone_app/config/theme/app_pallet_colors/light_pallet_colors.dart';
+import 'package:amazon_clone_app/config/config_import_packages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,6 +6,9 @@ class AppLightTheme {
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
       colorScheme: LightPalletColor.lightColorSchema,
+       
+       appBarTheme: const AppBarTheme(centerTitle: true),
+
       inputDecorationTheme: const InputDecorationTheme(
         filled: true,
         fillColor: LightPalletColor.lightSurface,
@@ -40,8 +43,15 @@ class AppLightTheme {
               iconColor:
                   WidgetStatePropertyAll(LightPalletColor.lightOnPrimary))),
       cardTheme: CardTheme(
-        
         color: LightPalletColor.lightSurface,
         shape: Border.all(color: LightPalletColor.lightOnSurface),
-      ));
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: LightPalletColor.lightGreen,
+          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(50),)),
+
+      searchBarTheme: SearchBarThemeData(
+          elevation: const WidgetStatePropertyAll<double?>(5),
+          shape: WidgetStatePropertyAll<OutlinedBorder?>(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)))));
 }
